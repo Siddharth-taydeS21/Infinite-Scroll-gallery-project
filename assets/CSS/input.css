@@ -1,1 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Poppins&display=swap');
+
 @import "tailwindcss";
+
+
+@theme{
+    --font-google-sans: "Google Sans", sans-serif;
+}
+
+@layer base{
+    *{
+        @apply m-0 p-0 box-border font-google-sans;
+    }
+
+    html{
+        @apply scroll-smooth;
+    }
+
+    header{
+        @apply w-full h-14 fixed top-0 left-0 shadow-sm flex items-center bg-white;
+    }
+
+    nav{
+        @apply w-full max-w-7xl p-4 mx-auto flex justify-between items-center;
+    }
+
+    main{
+        @apply w-full;
+    }
+
+    section, footer{
+        @apply w-full py-20;
+    }
+
+    img{
+        @apply w-full h-auto object-cover;
+    }
+
+}
+
+@layer utilities{
+    .container{
+        @apply w-full max-w-7xl p-4 mx-auto;
+    }
+
+    .grid_item{
+        @apply  mb-4;
+    }
+
+    .social_link{
+        @apply text-3xl text-gray-500 transition-colors hover:text-gray-700 duration-200;
+    }
+}

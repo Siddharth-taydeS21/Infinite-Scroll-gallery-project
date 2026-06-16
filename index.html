@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +15,139 @@
     <!--  ==================== MAIN JS FILE ===================== -->
     <title>Infinite Scroll Gallery</title>
 </head>
+
 <body>
+    <header>
+        <nav>
+            <a href="#" class="logo flex items-center gap-2">
+                <i class="ri-image-ai-fill text-2xl"></i>
+                <span class="text-lg md:text-xl font-semibold">Image Gallery</span>
+            </a>
+
+            <div class="user_profile flex justify-center gap-2 items-center">
+                <i class="ri-arrow-drop-down-line"></i>
+                <h1 class="user_name hidden sm:flex">Siddharth</h1>
+                <div class="image_warpper size-[35px] bg-gray-600 rounded-full overflow-hidden">
+                    <img src="./assets/Images/Image-gallery-favicon.png" alt="" class="user-Image">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="imag-grid">
+            <div class="container grid gap-6">
+                <div class="title_and_searchBar_container grid gap-3 sm:grid-cols-2">
+                    <div class="section_title text-3xl font-bold">
+                        Search for 'Cats'..
+                    </div>
+
+                    <label for="search-input"
+                        class=" w-full border-2 border-gray-200 rounded p-[.5rem_1rem] sm:w-[300px] justify-self-end">
+                        <i class="ri-search-2-line"></i>
+                        <input type="text" id="search-input" placeholder="Search Photos"
+                            class="border-none focus:outline-none focus:ring-0 p-l-2">
+                    </label>
+                </div>
+
+                <div class="main_image_grid border border-gray-200 rounded-lg p-4 columns-1 md:columns-2 lg:columns-3">
+                    <!-- <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1778222413836-8c3d280b6460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://plus.unsplash.com/premium_photo-1780474533115-8a32887aec51?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://plus.unsplash.com/premium_photo-1780474533115-8a32887aec51?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1778946283057-5d9a7486f1bd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1773332611550-9f5a465b4e42?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1781458378182-0d946f4988cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1781588080363-5fe0e603d5c3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1781355959989-67b652fc21d7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1777975433721-37a919288c7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div>
+                    <div class="grid_item"><img
+                            src="https://images.unsplash.com/photo-1773332585698-cba3c91b73e4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4fHx8ZW58MHx8fHx8"
+                            alt="image" srcset=""></div> -->
+                </div>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer w-full p-4 grid gap-10 bg-gray-100">
+        <div class="container grid gap-y-12 justify-center sm:grid-cols-[470px] md:grid-cols-2">
+            <div class="footer_data grid gap-8">
+                <div class="footer_info grid gap-4 mb-4">
+                    <a href="#" class="logo flex items-center gap-2">
+                        <i class="ri-image-ai-fill text-2xl"></i>
+                        <span class="text-xl md:text-2xl font-semibold">Image Gallery</span>
+                    </a>
+
+                    <p class="footer_description">
+                        Explore something Beautiful, unique, unwatched, exiting with us every time..
+                    </p>
+                </div>
+
+                <div class="footer_socials flex gap-x-3">
+                    <a href="https://www.linkedin.com/in/siddharth-tayde-7a9547318/" target="_blank"
+                        class="social_link">
+                        <i class="ri-linkedin-box-fill"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/siddhartxthetic/" target="_blank" class="social_link">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+
+                    <a href="https://x.com/SiddharthS21" target="_blank" class="social_link">
+                        <i class="ri-twitter-x-line"></i>
+                    </a>
+
+                    <a href="https://github.com/Siddharth-taydeS21" target="_blank" class="social_link">
+                        <i class="ri-github-fill"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer_content grid gap-12 md:justify-end">
+                <div class="footer_newsLatter xl:w-[350px] text-center">
+                    <h3 class="footer_title font-semibold mb-2 text-xl md:text-2xl">Stay Connected</h3>
+
+                    <p class="transition-colors duration-300 text-sm">
+                        Questions or feedback? we'd love to hear from you.
+                    </p>
+
+                    <form action=""
+                        class="footer_form mt-8 bg-white w-full flex p-3 rounded-md shadow-sm xs:w-[300px] xl:w-[350px]">
+                        <input type="email" class="footer_input w-full bg-transparent pl-2 text-title-color"
+                            placeholder="Email address">
+
+                        <button
+                            class="footer_button size-[35px] rounded-md border border-gray-200 text-xl font-bold shadow-sm transition-colors cursor-pointer">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr class="text-gray-400 w-full max-w-7xl mx-auto">
+
+        <span class="text-sm text-gray-500 text-center">© 2026 All rights reserved.</span>
+    </footer>
 
     <script src="./assets/JS/main.js"></script>
 </body>
+
 </html>
