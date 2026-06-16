@@ -339,10 +339,6 @@
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
-  }
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
@@ -466,6 +462,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
     display: flex;
     height: calc(var(--spacing) * 14);
     width: 100%;
@@ -520,6 +517,36 @@
         color: var(--color-gray-700);
       }
     }
+  }
+}
+.section_title {
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  z-index: -10;
+  width: fit-content;
+}
+.section_title::before {
+  content: '|';
+  position: absolute;
+  right: 0;
+  background-color: white;
+  animation: type 5s steps(19) infinite, blink 1s infinite;
+}
+@keyframes type {
+  0% {
+    width: 100%;
+  }
+  30% {
+    width: 0%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+@keyframes blink {
+  50% {
+    color: transparent;
   }
 }
 @property --tw-border-style {

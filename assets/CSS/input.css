@@ -3,51 +3,87 @@
 @import "tailwindcss";
 
 
-@theme{
+@theme {
     --font-google-sans: "Google Sans", sans-serif;
 }
 
-@layer base{
-    *{
+@layer base {
+    * {
         @apply m-0 p-0 box-border font-google-sans;
     }
 
-    html{
+    html {
         @apply scroll-smooth;
     }
 
-    header{
-        @apply w-full h-14 fixed top-0 left-0 shadow-sm flex items-center bg-white;
+    header {
+        @apply w-full h-14 fixed top-0 left-0 shadow-sm flex items-center bg-white z-100;
     }
 
-    nav{
+    nav {
         @apply w-full max-w-7xl p-4 mx-auto flex justify-between items-center;
     }
 
-    main{
+    main {
         @apply w-full;
     }
 
-    section, footer{
+    section,
+    footer {
         @apply w-full py-20;
     }
 
-    img{
+    img {
         @apply w-full h-auto object-cover;
     }
 
 }
 
-@layer utilities{
-    .container{
+@layer utilities {
+    .container {
         @apply w-full max-w-7xl p-4 mx-auto;
     }
 
-    .grid_item{
-        @apply  mb-4;
+    .grid_item {
+        @apply mb-4;
     }
 
-    .social_link{
+    .social_link {
         @apply text-3xl text-gray-500 transition-colors hover:text-gray-700 duration-200;
+    }
+}
+
+/* =============================== CUSTOM CSS FOR SECTION TITLE TO MAKE A TYPE WRITER EFFECT ====================================== */
+.section_title {
+    font-size: 30px;
+    font-weight: 600;
+    position: relative;
+    z-index: -10;
+    width: fit-content;
+}
+
+.section_title::before {
+    content: '|';
+    position: absolute;
+    right: 0;
+    background-color: white;
+    animation: type 5s steps(19) infinite,
+    blink 1s infinite ;
+}
+
+@keyframes type {
+    0% {
+        width: 100%;
+    }
+    30% {
+        width: 0%;
+    } 100%{
+        width: 0%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        color: transparent;
     }
 }
