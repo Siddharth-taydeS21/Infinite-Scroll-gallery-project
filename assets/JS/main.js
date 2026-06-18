@@ -1,3 +1,5 @@
+import { fetchData } from "./galleryAPI.js";
+
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
 
@@ -24,3 +26,7 @@ const setKeyword = () => {
 setInterval(() => {
     setKeyword();
 }, 5000);
+
+// profile modal popup (optional);
+
+// arrow on scrollDown
