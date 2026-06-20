@@ -8,10 +8,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npx @tailwindcss/cli -i ./assets/CSS/input.css -o ./assets/CSS/output.css --watch"
+    "watch": "npx @tailwindcss/cli -i ./CSS/input.css -o ./CSS/output.css --watch",
+    "dev": "vite"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.3.1",
     "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
   }
 }

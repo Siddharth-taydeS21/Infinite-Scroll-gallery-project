@@ -1,5 +1,0 @@
-// isImageGalleryLoading(statement);
-
-// renderImages();
-
-// deBounceSearch();

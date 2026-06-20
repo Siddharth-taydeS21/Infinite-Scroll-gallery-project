@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./assets/Images/Image-gallery-favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/Image-gallery-favicon.png" type="image/x-icon">
 
     <!-- ======================= REMIX ICON =========================== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 
     <!-- ======================= TAILWIND CSS =========================== -->
-    <link rel="stylesheet" href="./assets/CSS/output.css">
+    <link rel="stylesheet" href="./CSS/output.css">
 
     <!--  ==================== MAIN JS FILE ===================== -->
     <title>Infinite Scroll Gallery</title>
@@ -28,7 +28,7 @@
                 <i class="ri-arrow-drop-down-line"></i>
                 <h1 class="user_name hidden sm:flex">Siddharth</h1>
                 <div class="image_warpper size-[35px] bg-gray-600 rounded-full overflow-hidden">
-                    <img src="./assets/Images/Image-gallery-favicon.png" alt="" class="user-Image">
+                    <img src="./assets/Image-gallery-favicon.png" alt="" class="user-Image">
                 </div>
             </div>
         </nav>
@@ -52,6 +52,10 @@
                     <!-- <div class="grid_item"><img
                             src="https://images.unsplash.com/photo-1778222413836-8c3d280b6460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
                             alt="image" srcset=""></div> -->
+
+                    <template id="loading_images_template">
+                        <div class="loder w-full h-[250px] bg-gray-300 rounded-xl animate-pulse"></div>
+                    </template>
                 </div>
             </div>
             </div>
@@ -118,7 +122,7 @@
         <span class="text-sm text-gray-500 text-center">© 2026 All rights reserved.</span>
     </footer>
 
-    <script type="module" src="./assets/JS/main.js"></script>
+    <script type="module" src="./JS/main.js"></script>
 </body>
 
 </html>

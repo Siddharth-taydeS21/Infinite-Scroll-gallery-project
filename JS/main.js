@@ -1,4 +1,4 @@
-import { fetchData } from "./galleryAPI.js";
+import { fetchData } from "./imageGallery.js";
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
@@ -15,12 +15,12 @@ const textArray = [
 let i = 0;
 const setKeyword = () => {
     title.textContent = textArray[i];
-        title.classList.add('my_element')
-        i++;
-        if (i === textArray.length) {
-            i = 0;
-            return;
-        };
+    title.classList.add('my_element')
+    i++;
+    if (i === textArray.length) {
+        i = 0;
+        return;
+    };
 };
 
 setInterval(() => {
@@ -30,3 +30,4 @@ setInterval(() => {
 // profile modal popup (optional);
 
 // arrow on scrollDown
+fetchData()
