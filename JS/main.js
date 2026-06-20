@@ -30,4 +30,5 @@ setInterval(() => {
 // profile modal popup (optional);
 
 // arrow on scrollDown
-fetchData()
+
+// fetchData()
