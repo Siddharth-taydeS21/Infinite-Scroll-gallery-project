@@ -33,8 +33,9 @@
             </div>
         </nav>
     </header>
-
+    
     <main>
+
         <section class="imag-grid">
             <div class="container grid gap-6">
                 <div class="title_and_searchBar_container grid gap-3 sm:grid-cols-2">
@@ -65,9 +66,13 @@
 
                 <!-- =================== IMAGES LOADERS TEMPLATE (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->
                 <template id="loading_images_template">
-                    <div class="loader w-full h-[250px] bg-gray-300 rounded-lg mb-4 animate-pulse"></div>
+                    <div class="loading_card w-full my-10 grid justify-center items-center gap-4 text-center sm:col-span-2 lg:col-span-3 animate-pulse">
+                        <div class="text-lg text-gray-500 font-semibold flex justify-center items-center gap-2">
+                            Loading.. 
+                            <div class="spinner size-[20px] border-3 border-white border-t-gray-500 border-l-gray-500 rounded-full animate-spin"></div>
+                        </div> 
+                </div>
                 </template>
-
 
                 <!-- =================== IMAGES GALLERY ERROR UI TEMPLATE (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->
                 <template id="gallery_error_template">
@@ -148,6 +153,7 @@
     </footer>
 
     <script type="module" src="./JS/main.js"></script>
+    
 </body>
 
 </html>

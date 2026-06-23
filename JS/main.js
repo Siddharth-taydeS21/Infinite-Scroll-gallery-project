@@ -31,4 +31,5 @@ setInterval(() => {
 
 // arrow on scrollDown
 
-// fetchData()
+fetchData()
+

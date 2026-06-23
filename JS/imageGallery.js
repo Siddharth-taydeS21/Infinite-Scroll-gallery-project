@@ -16,30 +16,49 @@ const gallery = document.querySelector('.main_image_grid');
 
 const isGalleryLoading = () => {
     if (state.loading === true) {
-        for (let i = 0; i < 10; i++) {
-            gallery.append(
-                loadingTemplate.content.cloneNode(true)
-            )
-        }
-    }else if(state.loading === 'error'){
+        galleryParent.append(
+            loadingTemplate.content.cloneNode(true)
+        )
+    } else if (state.loading === 'error') {
         galleryParent.append(errorTemplate.content.cloneNode(true))
-    }else if(state.loading === false ){
-        const loaders = document.querySelectorAll('.loader');
-        loaders.forEach(loader => {
-            loader.remove()
-        })
+    } else if (state.loading === false) {
+        const loader = document.querySelector('.loading_card');
+        loader.remove();
     }
 } // DONE 
 
+
 const renderImages = (obj) => {
-    obj.forEach(item => {
-        const imageUrl = item.urls.small;
+
+    obj.forEach(img => {
+        const imageUrl = img.urls.small;
         gallery.innerHTML += `
-            <div class="grid_item"><img src="${imageUrl}"  alt="image" loading="lazy"></div>
-        `
+        <div class="grid_item"><img src="${imageUrl}"  alt="image" loading="lazy"></div>
+    `;
     })
-    
+
+    const lastElem = document.querySelector('.grid_item:last-of-type');
+    Observer.observe(lastElem)
+
 }
+
+
+const Observer = new IntersectionObserver(entries => {
+    const lastElem = entries[0];
+    if (!lastElem.isIntersecting) return
+    state.page++;
+    console.log(state.page);
+
+    fetchData(state.page);
+    Observer.unobserve(lastElem.target);
+
+    const newLast = document.querySelector('.grid_item:last-of-type')
+    if (newLast) Observer.observe(newLast);
+}, {
+    threshold: 1
+})
+
+
 
 const fetchData = async (num = 1) => {
     // MAKE UI FUNCTION THAT SHOWS LOADING SKELETONS IN IMAGE GRID WHEN FETCHING  
@@ -56,20 +75,20 @@ const fetchData = async (num = 1) => {
         };
 
         const data = await response.json();
-        renderImages(data)
-        
+        renderImages(data);
+
     } catch (error) {
         console.log(error);
+        // SHOW THE ERROR UI HERE ON ERROR
         state.loading = 'error';
         isGalleryLoading();
-        // SHOW THE ERROR UI HERE ON ERROR
 
-    } finally{
+    } finally {
         state.loading = false;
         isGalleryLoading();
     }
 } // DONE
 
-// paginationLogic();
+// debounce on search logic 
 
 // networkAbortController();
