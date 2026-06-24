@@ -41,7 +41,16 @@ const debounceSearch = debounce(text => {
     if (!text) {
         return;
     } else {
+        // RESTING THE QUERY DETAILS IN STATE ON EVERY SEARCH
         state.query = text;
+        state.queryPage = 1;
+
+        // IF GALLERY HAS ERROR ELEMENT, THEN REMOVE IT
+        const errorCard = document.querySelector('.error_card')
+        if (errorCard) {
+            errorCard.remove();
+        }
+
         fetchData(state.queryPage, state.query);
     }
 
@@ -64,7 +73,9 @@ const isGalleryLoading = () => {
         )
     } else if (state.loading === 'error') {
         galleryParent.append(errorTemplate.content.cloneNode(true))
-    } else if (state.loading === false) {
+    } 
+    // SHOW ERROR : "INVALID KEYWORD" 
+    else if (state.loading === false) {
         const loader = document.querySelector('.loading_card');
         if (loader) {
             loader.remove();
@@ -72,21 +83,6 @@ const isGalleryLoading = () => {
     }
 } // DONE 
 
-
-const renderImages = (obj, str) => {
-    if (str && state.queryPage === 1) {
-        gallery.innerHTML = '';
-    }
-    obj.forEach(img => {
-        const imageUrl = img.urls.small;
-        gallery.innerHTML += `
-        <div class="grid_item"><img src="${imageUrl}"  alt="image" loading="lazy"></div>
-    `;
-    })
-
-    Observer.observe(sentinel);
-
-}
 
 const Observer = new IntersectionObserver(entries => {
     const lastElem = entries[0];
@@ -98,7 +94,7 @@ const Observer = new IntersectionObserver(entries => {
         state.page++;
         fetchData(state.page);
         console.log(state.page);
-    }else{
+    } else {
         state.queryPage++;
         console.log(state.queryPage);
         fetchData(state.queryPage, state.query);
@@ -107,7 +103,37 @@ const Observer = new IntersectionObserver(entries => {
 }, {
 })
 
+const renderImages = (obj, str, str2) => {
+    // IF USER IS SEARCHING WITH NEW QUERY, MAKING THE HTML CONTAINER EMPTY
+    if (str && state.queryPage === 1) {
+        gallery.innerHTML = '';
+    }
 
+    let query;
+    if (str2) {
+        query = str2
+    } else {
+        query = null;
+    };
+
+    if (obj.length === 0) {
+        console.log(obj, 'searching for :', query);
+        state.loading = 'error'; // SHOW ERROR : "INVALID KEYWORD" 
+        isGalleryLoading();
+        Observer.unobserve(sentinel);
+        return;
+    }
+
+    obj.forEach(img => {
+        const imageUrl = img.urls.small;
+        gallery.innerHTML += `
+        <div class="grid_item"><img src="${imageUrl}"  alt="image" loading="lazy"></div>
+    `;
+    })
+
+    Observer.observe(sentinel);
+
+}
 
 const fetchData = async (num = 1, query) => {
     // MAKE UI FUNCTION THAT SHOWS LOADING SKELETONS IN IMAGE GRID WHEN FETCHING  
@@ -138,11 +164,11 @@ const fetchData = async (num = 1, query) => {
         const data = await response.json();
 
         if (query) {
-            renderImages(data.results, 'clear');
-            console.log(data.results);
+            console.log(data.results, 'searching for :', query);
+            renderImages(data.results, 'clear', query);
         } else {
-            renderImages(data);
             console.log(data);
+            renderImages(data);
         }
 
 
