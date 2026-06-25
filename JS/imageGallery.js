@@ -15,6 +15,9 @@ const galleryParent = document.querySelector('.image_grid_parent');
 const gallery = document.querySelector('.main_image_grid');
 const searchInput = document.getElementById('search-input');
 
+const columns = document.querySelectorAll('.col');
+const columnHeights = [0, 0, 0];
+
 // SENTINEL DIV ELEMENT FOR CONTINUOUS OBSERVATION
 const sentinel = document.querySelector('.sentinel');
 
@@ -68,17 +71,23 @@ searchInput.addEventListener('input', (e) => {
 
 const isGalleryLoading = () => {
     if (state.loading === true) {
-        galleryParent.append(
-            loadingTemplate.content.cloneNode(true)
-        )
+        columns.forEach(col => {
+            for (let i = 0; i < 1; i++) {
+                col.append(
+                    loadingTemplate.content.cloneNode(true)
+                )
+            }
+        })
     } else if (state.loading === 'error') {
         galleryParent.append(errorTemplate.content.cloneNode(true))
-    } 
+    }
     // SHOW ERROR : "INVALID KEYWORD" 
     else if (state.loading === false) {
-        const loader = document.querySelector('.loading_card');
+        const loader = document.querySelectorAll('.loaders');
         if (loader) {
-            loader.remove();
+            loader.forEach(loader => {
+                loader.remove();
+            })
         }
     }
 } // DONE 
@@ -101,12 +110,15 @@ const Observer = new IntersectionObserver(entries => {
     }
 
 }, {
+    rootMargin: '400px'
 })
 
-const renderImages = (obj, str, str2) => {
+const renderImages = (photos, str, str2) => {
     // IF USER IS SEARCHING WITH NEW QUERY, MAKING THE HTML CONTAINER EMPTY
     if (str && state.queryPage === 1) {
-        gallery.innerHTML = '';
+        columns.forEach(col => {
+            col.innerHTML = '';
+        })
     }
 
     let query;
@@ -116,23 +128,35 @@ const renderImages = (obj, str, str2) => {
         query = null;
     };
 
-    if (obj.length === 0) {
-        console.log(obj, 'searching for :', query);
+    if (photos.length === 0) {
+        console.log(photos, 'searching for :', query);
         state.loading = 'error'; // SHOW ERROR : "INVALID KEYWORD" 
         isGalleryLoading();
         Observer.unobserve(sentinel);
         return;
     }
 
-    obj.forEach(img => {
+    photos.forEach(img => {
         const imageUrl = img.urls.small;
-        gallery.innerHTML += `
-        <div class="grid_item"><img src="${imageUrl}"  alt="image" loading="lazy"></div>
-    `;
+
+        // WE NEED TO GET SMALL ITEM FORM COLUMNS HEIGHT ARRAY
+        // SHORT INDEX = FIND SMALL ITEMS INDEX 
+        const shortestIndex = columnHeights.indexOf(
+            Math.min(...columnHeights)
+        );
+        
+        // COLUMN =  columns[SHORT INDEX]
+        const column = columns[shortestIndex];
+
+        column.innerHTML += `
+        <div class="grid_item bg-gray-300 rounded">
+            <img src="${imageUrl}"  alt="image" loading="lazy">
+        </div>
+        `;
+
+        columnHeights[shortestIndex] += img.height;
     })
-
     Observer.observe(sentinel);
-
 }
 
 const fetchData = async (num = 1, query) => {
