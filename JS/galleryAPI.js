@@ -1,7 +1,7 @@
-export { fetchData, Observer, searchInput };
+export { fetchData, Observer };
 import { state } from "./galleryStates.js";
 import { Observer, renderImages, isGalleryLoading } from './galleryUI.js';
-import { debounceSearch } from "./utils.js";
+import { debounce } from "./utils.js";
 
 // ========== DEBOUNCING SEARCH FIELD ===========
 const searchInput = document.getElementById('search-input');
@@ -63,5 +63,29 @@ const fetchData = async (num = 1, query) => {
     }
 }
 
+
+// ============ INOUT HANDLER FUNCTION (USER IS SEARCHING FOR QUERY) ============== 
+const debounceSearch = debounce(text => {
+    // we can call our API with the text as api query instead of this console log 
+    if (!text) {
+        return;
+    } else {
+        // RESTING THE QUERY DETAILS IN STATE ON EVERY SEARCH
+        state.query = text;
+        state.queryPage = 1;
+        state.columnHeights = [0, 0, 0];
+
+        // IF GALLERY HAS ERROR ELEMENT, THEN REMOVE IT
+        const errorCard = document.querySelector('.error_card')
+        if (errorCard) {
+            errorCard.remove();
+        }
+
+        fetchData(state.queryPage, state.query);
+    }
+
+    // lose focus of search input 
+    searchInput.blur();
+}, 1000)
 
 // networkAbortController();

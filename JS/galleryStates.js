@@ -5,5 +5,6 @@ const state = {
     query: '',
     queryPage: 1,
     loading: false,
-    isUserSearching: false
+    isUserSearching: false,
+    columnHeights: [0, 0, 0]
 }

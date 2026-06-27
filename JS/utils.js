@@ -1,14 +1,13 @@
-export { getShortestColumn, columns, columnHeights, LoadImages, debounceSearch };
+export { getShortestColumn, columns, LoadImages, debounce };
 import { state } from "./galleryStates.js";
-import { fetchData, searchInput } from "./galleryAPI.js";
 
 // =================== GETTING SHORT COLUMN TO APPEND IMAGES FROM API RESPONSE ================= 
 const columns = document.querySelectorAll('.col');
-let columnHeights = [0, 0, 0];
 
 const getShortestColumn = () => {
-    const shortestIndex = columnHeights.indexOf(
-        Math.min(...columnHeights)
+    const cols = state.columnHeights
+    const shortestIndex = cols.indexOf(
+        Math.min(...cols)
     );
     return shortestIndex;
 }
@@ -39,7 +38,7 @@ const LoadImages = () => {
     })
   
   }
-  
+
 
 // ==========================  DEBOUNCING ON SEARCH LOGIC ==============================
 
@@ -55,27 +54,3 @@ const debounce = (callBack, delay = 500) => {
     }
 
 }
-
-// ============ INOUT HANDLER FUNCTION (USER IS SEARCHING FOR QUERY) ============== 
-const debounceSearch = debounce(text => {
-    // we can call our API with the text as api query instead of this console log 
-    if (!text) {
-        return;
-    } else {
-        // RESTING THE QUERY DETAILS IN STATE ON EVERY SEARCH
-        state.query = text;
-        state.queryPage = 1;
-        columnHeights = [0, 0, 0];
-
-        // IF GALLERY HAS ERROR ELEMENT, THEN REMOVE IT
-        const errorCard = document.querySelector('.error_card')
-        if (errorCard) {
-            errorCard.remove();
-        }
-
-        fetchData(state.queryPage, state.query);
-    }
-
-    // lose focus of search input 
-    searchInput.blur();
-}, 1000)

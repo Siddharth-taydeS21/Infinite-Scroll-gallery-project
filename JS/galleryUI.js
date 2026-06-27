@@ -1,5 +1,5 @@
 export { Observer, renderImages, isGalleryLoading };
-import { getShortestColumn, columns, columnHeights, LoadImages } from "./utils.js";
+import { getShortestColumn, columns, LoadImages } from "./utils.js";
 import { state } from "./galleryStates.js";
 import { fetchData } from "./galleryAPI.js";
 
@@ -104,7 +104,7 @@ const renderImages = (photos, clear, Query) => {
         </div>
         `;
 
-        columnHeights[index] += img.height / img.width;
+        state.columnHeights[index] += img.height / img.width;
     })
 
     LoadImages();
