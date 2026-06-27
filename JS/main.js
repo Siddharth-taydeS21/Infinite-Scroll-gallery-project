@@ -1,4 +1,4 @@
-import { fetchData } from "./imageGallery.js";
+import { fetchData } from "./galleryAPI.js";
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
