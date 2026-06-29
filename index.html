@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="image_grid_parent border grid border-gray-200 rounded-lg p-4">
-                    <div class="main_image_grid w-full grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="desktop_container w-full max-lg:hidden lg:grid gap-4 grid-cols-3">
                         <div class="col">
 
                         </div>
@@ -59,6 +59,22 @@
 
                         </div>
 
+                        <div class="col">
+
+                        </div>
+                    </div>
+
+                    <div class="tablets_container w-full max-sm:hidden sm:grid lg:hidden gap-4 grid-cols-2">
+                        <div class="col">
+
+                        </div>
+
+                        <div class="col">
+
+                        </div>
+                    </div>
+
+                    <div class="mobiles_container w-full grid sm:hidden gap-4 grid-cols-1">
                         <div class="col">
 
                         </div>
@@ -82,7 +98,10 @@
                 <template id="loading_images_template">
                     <div class="loaders w-full h-[500px] bg-gray-300 mb-4 rounded animate-pulse"></div>
                     <div class="loaders w-full h-[300px] bg-gray-300 mb-4 rounded animate-pulse"></div>
-                    <!-- <div
+                </template>
+
+                <template id="loading_spinner_template">
+                    <div
                         class="loading_card w-full my-10 grid justify-center items-center gap-4 text-center sm:col-span-2 lg:col-span-3 animate-pulse">
                         <div class="text-lg text-gray-500 font-semibold flex justify-center items-center gap-2">
                             Loading..
@@ -90,7 +109,7 @@
                                 class="spinner size-[20px] border-3 border-white border-t-gray-500 border-l-gray-500 rounded-full animate-spin">
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </template>
 
                 <!-- =================== IMAGES GALLERY ERROR UI TEMPLATE (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->

@@ -1,7 +1,7 @@
 export { fetchData, Observer };
 import { state } from "./galleryStates.js";
 import { Observer, renderImages, isGalleryLoading } from './galleryUI.js';
-import { debounce } from "./utils.js";
+import { debounce, getMainGrid } from "./utils.js";
 
 // ========== DEBOUNCING SEARCH FIELD ===========
 const searchInput = document.getElementById('search-input');
@@ -15,7 +15,7 @@ searchInput.addEventListener('input', (e) => {
 })
 
 // ================== PRIMARY REUSABLE FETCH DATA FUNCTION ==============
-const fetchData = async (num = 1, query) => {
+const fetchData = async (pageNum = 1, query) => {
     const key = import.meta.env.VITE_key;
 
     // loading state before API call
@@ -24,10 +24,10 @@ const fetchData = async (num = 1, query) => {
 
     let url;
     if (query) {
-        url = `https://api.unsplash.com/search/photos?page=${num}&per_page=14&query=${query}`;
+        url = `https://api.unsplash.com/search/photos?page=${pageNum}&per_page=14&query=${query}`;
         state.isUserSearching = true;
     } else {
-        url = `https://api.unsplash.com/photos?page=${num}&per_page=14`;
+        url = `https://api.unsplash.com/photos?page=${pageNum}&per_page=14`;
     }
 
     try {
@@ -44,11 +44,18 @@ const fetchData = async (num = 1, query) => {
 
         if (query) {
             console.log(data.results, 'searching for :', query);
+            data.results.forEach(el => {
+                state.allImagesData.push(el);
+            });
             renderImages(data.results, 'clear', query);
         } else {
-            console.log(data);
+            // console.log(data);
+            data.forEach(el => {
+                state.allImagesData.push(el);
+            });
             renderImages(data);
         }
+        console.log('all images data array: ' ,state.allImagesData)
 
 
     } catch (error) {
@@ -64,7 +71,7 @@ const fetchData = async (num = 1, query) => {
 }
 
 
-// ============ INOUT HANDLER FUNCTION (USER IS SEARCHING FOR QUERY) ============== 
+// ============ INPUT HANDLER FUNCTION (USER IS SEARCHING FOR QUERY) ============== 
 const debounceSearch = debounce(text => {
     // we can call our API with the text as api query instead of this console log 
     if (!text) {
@@ -74,6 +81,7 @@ const debounceSearch = debounce(text => {
         state.query = text;
         state.queryPage = 1;
         state.columnHeights = [0, 0, 0];
+        state.allImagesData = [];
 
         // IF GALLERY HAS ERROR ELEMENT, THEN REMOVE IT
         const errorCard = document.querySelector('.error_card')

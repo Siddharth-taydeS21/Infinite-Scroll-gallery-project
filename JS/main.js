@@ -1,4 +1,5 @@
 import { fetchData } from "./galleryAPI.js";
+import { LayoutObserver } from "./layoutObserver.js";
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
