@@ -1,5 +1,4 @@
-export { getShortestColumn, LoadImages, debounce, getMainGrid };
-import { Observer } from "./galleryAPI.js";
+export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText };
 import { state } from "./galleryStates.js";
 
 // =================== GETTING SHORT COLUMN TO APPEND IMAGES FROM API RESPONSE ================= 
@@ -35,7 +34,7 @@ const getMainGrid = (container) => {
 
     // THIS CODE WILL RUN WHEN SOMEONE IS TRYING TO CHANGE THE BROWSER SCREEN SIZE 
     if (container === 'mobile-container') {
-        column = document.querySelector('.mobiles_container'); 
+        column = document.querySelector('.mobiles_container');
     }
 
     else if (container === 'tablet-container') {
@@ -70,18 +69,18 @@ const getMainGrid = (container) => {
 }
 
 // =================== BLUR LOAD + PULSE ANIMATION LOGIC FOR IMAGES =====================
-const LoadImages = () => {
-    const GridItemParents = document.querySelectorAll('.grid_item_parent');
+const LoadImages = (ParentClassName, wrapperClassName) => {
+    const GridItemParents = document.querySelectorAll(`.${ParentClassName}`);
 
     GridItemParents.forEach(gridItem => {
-        const wrapper = gridItem.querySelector('.grid_item');
+        const wrapper = gridItem.querySelector(`.${wrapperClassName}`);
         const img = wrapper.querySelector('img');
 
         function loaded() {
             wrapper.classList.replace('opacity-0', 'opacity-100');
             img.classList.replace('opacity-0', 'opacity-100')
             gridItem.classList.remove('animate-pulse')
-
+            
             setTimeout(() => {
                 wrapper.classList.remove('blur-xl');
             }, 1500)
@@ -110,4 +109,21 @@ const debounce = (callBack, delay = 500) => {
         }, delay)
     }
 
+}
+
+// ==========================  DATE FORMATTER FOR HERO IMG CARD ==========================
+const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+
+    const formattedDate = formatter.format(date);
+    return formattedDate;
+}
+
+// ================================ TRUNCATE TEXT IF TOO LONG LOGIC ===================================
+const trunCateText = (text, length) => {
+    if (!text || text.length <= length) return text;
+    return text.slice(0, length) + '...';
 }

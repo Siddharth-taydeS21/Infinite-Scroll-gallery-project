@@ -82,6 +82,8 @@
                 </div>
                 <div class="sentinel"></div>
 
+
+
                 <!-- dummy images for testing -->
                 <!-- <div class="grid_item"><img src="./assets/photo-1.avif" alt="image" srcset=""></div>
                         <div class="grid_item"><img src="./assets/photo-2.avif" alt="image" srcset=""></div>
@@ -127,7 +129,103 @@
                 </template>
 
 
+
             </div>
+        </section>
+        <section class="image_modal_section">
+            <dialog id="image_modal"
+                class="bg-white mx-auto max-w-[1350px] rounded mt-4 scrollbar-thin scrollbar-thumb-gray-300">
+                <div class="w-full p-4 mx-auto grid gap-y-10 relative">
+                    <button id="close-modal"
+                        class="absolute top-4 right-4 bg bg-white w-fit p-[.4rem_.7rem] rounded-md shadow-sm">
+                        <i class="ri-close-large-line"></i>
+                    </button>
+                    <div class="hero_image_container grid gap-y-4">
+                        <div class="user_details flex justify-start gap-2 items-center">
+
+                            <div class="user_img_wrapper size-12 overflow-hidden rounded-full border border-gray-400">
+                                <img src="" alt="img" class="user_img  object-cover object-center">
+                            </div>
+                            <div class="user grid">
+                                <h1 class="user_Name flex">Siddharth</h1>
+                                <small class="user_bio text-gray-500"></small>
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="main_image_container max-h-[75vh] overflow-hidden bg-gray-100 rounded animate-pulse relative">
+                            <!-- <img src="" alt="" class="main_img h-full object-contain mx-auto"> -->
+                            <div
+                                class="spinner size-[30px] border-3 border-gray-200 border-t-gray-300 border-l-gray-300 rounded-full animate-spin absolute top-0 left-0 right-0 bottom-0 m-auto z-1">
+                            </div>
+                            <div class="main_img_wrapper bg-cover bg-no-repeat h-full blur-xl opacity-0">
+                                <img src="" alt=""
+                                    class="main_img h-full object-contain mx-auto transition-opacity duration-400 opacity-0"
+                                    loading="lazy">
+                            </div>
+                        </div>
+
+                        <div class="published_date">
+                            <small class="text-gray-500 flex justify-start gap-1 items-center">
+                                <i class="ri-calendar-line mt-[-3px]"></i>
+                                Published on
+                                <span class="img_pub_date"></span>
+                            </small>
+                        </div>
+
+                        <div class="image_stats flex justify-end gap-8 items-center px-1 mb-2">
+                            <button id="like_btn"
+                                class="bg-white w-fit flex justify-between items-center gap-x-1 p-[.4rem_.7rem] rounded-md shadow-sm mr-auto">
+                                Like
+                                <i class="ri-heart-3-line" id="unlike_icon"></i>
+                                <i class="ri-heart-3-fill hidden text-red-500" id="like_icon"></i>
+                            </button>
+
+                            <div class="views">
+                                <small class="text-gray-400">Views</small>
+                                <span id="img-views">298,383</span>
+                            </div>
+
+                            <div class="likes">
+                                <small class="text-gray-400">Likes</small>
+                                <span id="img-Likes">982</span>
+                            </div>
+
+                            <div class="downloads">
+                                <small class="text-gray-400">Downloads</small>
+                                <span id="img-downloads">2,982</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h1 class="text-xl lg:text-2xl font-semibold">Explore more Related Images..</h1>
+
+                    <div class="modal_desktop_container hidden md:grid grid-cols-3 gap-4">
+                        <div class="modal_col">
+                            
+                        </div>
+                        <div class="modal_col">
+                           
+                        </div>
+                        <div class="modal_col">
+                            
+                        </div>
+                    </div>
+
+                    <div class="modal_mobile_container grid md:hidden grid-cols-2 gap-4">
+                        <div class="modal_col">
+                           
+                        </div>
+                        <div class="modal_col">
+                            
+                        </div>
+                    </div>
+
+                    <div class="modal_sentinel"></div>
+                </div>
+            </dialog>
         </section>
     </main>
 

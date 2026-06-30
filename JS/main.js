@@ -1,5 +1,6 @@
 import { fetchData } from "./galleryAPI.js";
 import { LayoutObserver } from "./layoutObserver.js";
+import { fetchImageData } from "./imageDetailsAPI.js";
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
@@ -28,8 +29,18 @@ setInterval(() => {
     setKeyword();
 }, 5000);
 
+
+// =============================================================
+
 // profile modal popup (optional);
 
 // arrow on scrollDown
 
-fetchData()
+// fetchData()
+// fetchImageData()
+
+// const modal = document.getElementById('image_modal');
+// modal.showModal()
+
+// const imgModal = document.getElementById('image_modal');
+// imgModal.showModal()

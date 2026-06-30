@@ -106,6 +106,10 @@ const renderImages = (photos, clear, Query) => {
     // WHILE FETCHING NEXT PAGE, IF WE GOT ERROR, THEN RETURN AND SHOW ERROR MASSAGE  
     if (photos.length === 0) {
         console.log(photos, 'searching for :', query);
+        const errorCard = document.querySelector('.error_card');
+        if (errorCard) {
+            errorCard.remove();
+        }
         state.loading = 'error'; // SHOW ERROR : "INVALID KEYWORD" 
         isGalleryLoading();
         return;
@@ -120,6 +124,7 @@ const renderImages = (photos, clear, Query) => {
 
     // console.log(photos)
     photos.forEach(img => {
+        const imgId = img.id;
         const blurredImgUlr = img.urls.thumb;
         const imageUrl = img.urls.small;
 
@@ -149,13 +154,13 @@ const renderImages = (photos, clear, Query) => {
         column.innerHTML += `
         <div class="grid_item_parent mb-4 overflow-hidden bg-gray-300 animate-pulse">
             <div class="grid_item bg-[url(${blurredImgUlr})] bg-cover bg-no-repeat blur-xl opacity-0">
-                <img src="${imageUrl}" alt="image" class="transition-opacity duration-200 opacity-0" loading="lazy">
+                <img src="${imageUrl}" alt="image" data-id="${imgId}" class="transition-opacity duration-200 opacity-0" loading="lazy">
             </div>
         </div>
         `;
 
         heights[index] += img.height / img.width;
     })
-    LoadImages();
+    LoadImages('grid_item_parent', 'grid_item');
     Observer.observe(sentinel);
 }

@@ -1,4 +1,4 @@
-export { fetchData, Observer };
+export { fetchData };
 import { state } from "./galleryStates.js";
 import { Observer, renderImages, isGalleryLoading } from './galleryUI.js';
 import { debounce, getMainGrid } from "./utils.js";

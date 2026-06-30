@@ -40,6 +40,7 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         })
 
         // RENDER FUNCTION WILL DO THE REST FOR US, RENDER FUNCTION CAN FIND THE CURRENT LAYOUT BY HIMSELF
+        if (state.allImagesData.length === 0) return;
         renderImages(state.allImagesData);
     }
 
@@ -52,6 +53,7 @@ const LayoutObserver = new IntersectionObserver((entries) => {
             column.innerHTML = '';
         })
 
+        if (state.allImagesData.length === 0) return;
         renderImages(state.allImagesData);
     }
 
@@ -63,7 +65,8 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         columns.forEach(column => {
             column.innerHTML = '';
         })
-
+        
+        if (state.allImagesData.length === 0) return;
         renderImages(state.allImagesData);
     }
 })
