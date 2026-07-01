@@ -4,9 +4,10 @@ import { state } from "./galleryStates.js";
 import { fetchData } from "./galleryAPI.js";
 
 
-const loadingTemplate = document.getElementById('loading_images_template');
+const loadingTemplate = document.getElementById('modal_gallery_loading_temp');
 const spinLoadingTemplate = document.getElementById('loading_spinner_template');
-const errorTemplate = document.getElementById('gallery_error_template')
+const errorTemplate = document.getElementById('gallery_error_template');
+const invalidErrorTemplate = document.getElementById('Invalid_error_template');
 const galleryParent = document.querySelector('.image_grid_parent');
 
 // SENTINEL DIV ELEMENT FOR CONTINUOUS OBSERVATION
@@ -35,30 +36,24 @@ const Observer = new IntersectionObserver(entries => {
 // ======================= FUNCTION FOR LOADING & ERROR SATES OF UI ========================
 const isGalleryLoading = () => {
     if (state.loading === true) {
-        const htmlContainer = getMainGrid();
-        // console.log('got html container')
-        const columns = htmlContainer.querySelectorAll('.col');
-        // console.log('got columns')
-        columns.forEach(col => {
-            for (let i = 0; i < 1; i++) {
-                col.append(
-                    loadingTemplate.content.cloneNode(true)
-                )
-
-            }
-        })
+        galleryParent.append(
+            loadingTemplate.content.cloneNode(true)
+        )
         // console.log('loaders appended')
     } else if (state.loading === 'error') {
         galleryParent.append(errorTemplate.content.cloneNode(true));
         Observer.unobserve(sentinel);
     }
-    // SHOW ERROR : "INVALID KEYWORD" 
+    else if (state.loading === 'invalid') {
+        galleryParent.append(
+            invalidErrorTemplate.content.cloneNode(true)
+        )
+        Observer.unobserve(sentinel);
+    }
     else if (state.loading === false) {
-        const loader = document.querySelectorAll('.loaders');
+        const loader = galleryParent.querySelector('.spinner');
         if (loader) {
-            loader.forEach(loader => {
-                loader.remove();
-            })
+            loader.remove();
         }
     }
 }
@@ -110,7 +105,7 @@ const renderImages = (photos, clear, Query) => {
         if (errorCard) {
             errorCard.remove();
         }
-        state.loading = 'error'; // SHOW ERROR : "INVALID KEYWORD" 
+        state.loading = 'invalid'; // SHOW ERROR : "INVALID KEYWORD" 
         isGalleryLoading();
         return;
     }

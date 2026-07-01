@@ -1,7 +1,7 @@
 export { fetchData };
 import { state } from "./galleryStates.js";
-import { Observer, renderImages, isGalleryLoading } from './galleryUI.js';
-import { debounce, getMainGrid } from "./utils.js";
+import { renderImages, isGalleryLoading } from './galleryUI.js';
+import { debounce } from "./utils.js";
 
 // ========== DEBOUNCING SEARCH FIELD ===========
 const searchInput = document.getElementById('search-input');
