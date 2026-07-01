@@ -1,4 +1,4 @@
-export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText };
+export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText, getMainModalGrid, clearModalColumns };
 import { state } from "./galleryStates.js";
 
 // =================== GETTING SHORT COLUMN TO APPEND IMAGES FROM API RESPONSE ================= 
@@ -29,42 +29,41 @@ const getShortestColumn = (heights) => {
     return shortestIndex;
 }
 
-const getMainGrid = (container) => {
+const getMainGrid = () => {
     let column;
 
     // THIS CODE WILL RUN WHEN SOMEONE IS TRYING TO CHANGE THE BROWSER SCREEN SIZE 
-    if (container === 'mobile-container') {
+
+    if (window.innerWidth < 640) {
         column = document.querySelector('.mobiles_container');
+
     }
 
-    else if (container === 'tablet-container') {
+    else if (window.innerWidth >= 640 && window.innerWidth < 1024) {
         column = document.querySelector('.tablets_container');
+
     }
 
-    else if (container === 'desktop-container') {
+    else if (window.innerWidth >= 1024) {
         column = document.querySelector('.desktop_container');
-    }
 
-    // CHECKING THE WINDOW SCREEN SIZE MANUALLY 
-    if (!container) {
-
-        if (window.innerWidth < 640) {
-            column = document.querySelector('.mobiles_container');
-
-        }
-
-        else if (window.innerWidth >= 640 && window.innerWidth < 1024) {
-            column = document.querySelector('.tablets_container');
-
-        }
-
-        else if (window.innerWidth >= 1024) {
-            column = document.querySelector('.desktop_container');
-
-        }
     }
 
     // console.log(column)
+    return column;
+}
+
+const getMainModalGrid = () => {
+    let column;
+
+    if (window.innerWidth < 768) {
+        column = document.querySelector('.modal_mobile_container');
+    }
+
+    else if (window.innerWidth >= 768) {
+        column = document.querySelector('.modal_desktop_container');
+    }
+
     return column;
 }
 
@@ -80,7 +79,7 @@ const LoadImages = (ParentClassName, wrapperClassName) => {
             wrapper.classList.replace('opacity-0', 'opacity-100');
             img.classList.replace('opacity-0', 'opacity-100')
             gridItem.classList.remove('animate-pulse')
-            
+
             setTimeout(() => {
                 wrapper.classList.remove('blur-xl');
             }, 1500)
@@ -126,4 +125,22 @@ const getFormattedDate = (dateString) => {
 const trunCateText = (text, length) => {
     if (!text || text.length <= length) return text;
     return text.slice(0, length) + '...';
+}
+
+const clearModalColumns = () => {
+    const likeIcon = document.getElementById('like_icon');
+    const unlikeIcon = document.getElementById('unlike_icon')
+
+    likeIcon.classList.add('hidden');
+    unlikeIcon.classList.remove('hidden');
+
+    const htmlContainer = getMainModalGrid();
+    const columns = htmlContainer.querySelectorAll('.modal_col');
+
+    columns.forEach(col => {
+        col.innerHTML = '';
+    })
+
+    const modal = document.getElementById('image_modal');
+    modal.scrollTop = 0;
 }

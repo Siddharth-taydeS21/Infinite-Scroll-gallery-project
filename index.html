@@ -128,6 +128,20 @@
                     </div>
                 </template>
 
+                <template id="Invalid_error_template">
+                    <div class="error_card w-full my-35 grid justify-center items-center gap-4 text-center">
+                        <div
+                            class="error_logo_wrapper size-[80px] flex justify-center items-center rounded-full shadow-sm border border-gray-200 justify-self-center">
+                            <i class="ri-cloud-off-line font-semibold text-3xl text-gray-500"></i>
+                        </div>
+                        <div class="error_massage w-full grid justify-center text-cente">
+                            <h1 class="text-lg text-gray-500 font-semibold">Error: 404 Not found</h1>
+                            <small class="text-gray-400">(0 result found Or server error) Try again after sometime
+                            </small>
+                        </div>
+                    </div>
+                </template>
+
 
 
             </div>
@@ -154,16 +168,16 @@
                         </div>
 
                         <div
-                            class="main_image_container max-h-[75vh] overflow-hidden bg-gray-100 rounded animate-pulse relative">
+                            class="main_image_container h-[75vh] max-h-[75vh] overflow-hidden bg-gray-50 rounded animate-pulse relative">
                             <!-- <img src="" alt="" class="main_img h-full object-contain mx-auto"> -->
                             <div
                                 class="spinner size-[30px] border-3 border-gray-200 border-t-gray-300 border-l-gray-300 rounded-full animate-spin absolute top-0 left-0 right-0 bottom-0 m-auto z-1">
                             </div>
-                            <div class="main_img_wrapper bg-cover bg-no-repeat h-full blur-xl opacity-0">
-                                <img src="" alt=""
-                                    class="main_img h-full object-contain mx-auto transition-opacity duration-400 opacity-0"
-                                    loading="lazy">
-                            </div>
+                                <div class="main_img_wrapper bg-cover bg-no-repeat h-full blur-xl opacity-0">
+                                    <img src="./assets/photo-1.avif" alt=""
+                                        class="main_img h-full object-contain mx-auto transition-opacity duration-400 opacity-0"
+                                        loading="lazy">
+                                </div>
                         </div>
 
                         <div class="published_date">
@@ -178,8 +192,8 @@
                             <button id="like_btn"
                                 class="bg-white w-fit flex justify-between items-center gap-x-1 p-[.4rem_.7rem] rounded-md shadow-sm mr-auto">
                                 Like
-                                <i class="ri-heart-3-line" id="unlike_icon"></i>
-                                <i class="ri-heart-3-fill hidden text-red-500" id="like_icon"></i>
+                                <i class="ri-heart-3-line hidden" id="unlike_icon"></i>
+                                <i class="ri-heart-3-fill text-red-500" id="like_icon"></i>
                             </button>
 
                             <div class="views">
@@ -202,30 +216,42 @@
 
                     <h1 class="text-xl lg:text-2xl font-semibold">Explore more Related Images..</h1>
 
-                    <div class="modal_desktop_container hidden md:grid grid-cols-3 gap-4">
-                        <div class="modal_col">
-                            
+                    <div class="modal_gallery_parent">
+                        <div class="modal_desktop_container hidden md:grid grid-cols-3 gap-4">
+                            <div class="modal_col">
+                                <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
+                                <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
+                            </div>
+                            <div class="modal_col">
+                                <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
+                                <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
+                            </div>
+                            <div class="modal_col">
+                                <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
+                                <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
+                            </div>
                         </div>
-                        <div class="modal_col">
-                           
-                        </div>
-                        <div class="modal_col">
-                            
+
+                        <div class="modal_mobile_container grid md:hidden grid-cols-2 gap-4">
+                            <div class="modal_col">
+                                <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
+                                <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
+                            </div>
+                            <div class="modal_col">
+                                <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
+                                <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
+                            </div>
                         </div>
                     </div>
-
-                    <div class="modal_mobile_container grid md:hidden grid-cols-2 gap-4">
-                        <div class="modal_col">
-                           
-                        </div>
-                        <div class="modal_col">
-                            
-                        </div>
-                    </div>
-
                     <div class="modal_sentinel"></div>
                 </div>
             </dialog>
+
+            <template id="modal_gallery_loading_temp">
+                <div
+                    class="spinner size-[33px] border-5 border-gray-100 border-t-gray-300 border-l-gray-300 rounded-full animate-spin my-25 mx-auto">
+                </div>
+            </template>
         </section>
     </main>
 

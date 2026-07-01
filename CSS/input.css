@@ -14,7 +14,7 @@
         @apply m-0 p-0 box-border font-google-sans;
     }
 
-    html {
+    html, #image_modal {
         @apply scroll-smooth;
     }
 

@@ -1,6 +1,7 @@
 import { fetchData } from "./galleryAPI.js";
 import { LayoutObserver } from "./layoutObserver.js";
 import { fetchImageData } from "./imageDetailsAPI.js";
+import { addRelatedImages, isModalGalleryLoading } from "./imageDetailsUI.js";
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');
@@ -36,7 +37,7 @@ setInterval(() => {
 
 // arrow on scrollDown
 
-// fetchData()
+fetchData()
 // fetchImageData()
 
 // const modal = document.getElementById('image_modal');
@@ -44,3 +45,5 @@ setInterval(() => {
 
 // const imgModal = document.getElementById('image_modal');
 // imgModal.showModal()
+
+// isModalGalleryLoading()
