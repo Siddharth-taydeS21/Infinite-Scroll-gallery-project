@@ -10,6 +10,9 @@ const desktopContainer = document.querySelector('.desktop_container');
 const tabletContainer = document.querySelector('.tablets_container');
 const mobileContainer = document.querySelector('.mobiles_container');
 
+const ModalMobileContainer = document.querySelector('.modal_mobile_container')
+const ModalDesktopContainer = document.querySelector('.modal_desktop_container')
+
 const sentinel = document.querySelector('.sentinel');
 
 // ================================= MAIN MASONRY GRID'S INFINITE SCROLL OBSERVER FOR PAGINATION ========================================
@@ -57,7 +60,10 @@ modalObserver.observe(modalSentinel)
 const LayoutObserver = new IntersectionObserver((entries) => {
     let desktopLayout;
     let tabletLayout;
-    let mobileLayout
+    let mobileLayout;
+
+    let modalMobileLayout;
+
     entries.forEach(entry => {
         if (entry.target.className.includes("desktop_container")) {
             desktopLayout = entry
@@ -68,6 +74,10 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         else if(entry.target.className.includes("mobiles_container")){
             mobileLayout = entry
         }
+        else if(entry.target.className.includes("modal_mobile_container")){
+            modalMobileLayout = entry
+        }
+        
     })
 
     // console.log(desktopLayout)
@@ -114,8 +124,37 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         if (state.allImagesData.length === 0) return;
         renderImages(state.allImagesData);
     }
+
+    if (modalMobileLayout &&  modalMobileLayout.isIntersecting) {
+        console.log('Modal layout shifted to mobile');
+        const columns  = document.querySelectorAll('.modal_col');
+        columns.forEach(column => {
+            column.innerHTML = '';
+        })
+        
+        if (state.relatedImagesDataArray.length === 0) return;
+        addRelatedImages(state.relatedImagesDataArray);
+    } 
 })
 
-LayoutObserver.observe(desktopContainer)
-LayoutObserver.observe(tabletContainer)
-LayoutObserver.observe(mobileContainer)
+LayoutObserver.observe(desktopContainer);
+LayoutObserver.observe(tabletContainer);
+LayoutObserver.observe(mobileContainer);
+LayoutObserver.observe(ModalMobileContainer);
+
+// SINGLE OBSERVER FOR THE MODAL DESKTOP CONTAINER BECAUSE PRIMARY OBSERVER FUNCTION NOT WORKING ON THIS CONTAINER 
+const newObserver = new IntersectionObserver((entries) => {
+    const el = entries[0];
+    if (el.isIntersecting) {
+        console.log('Modal layout shifted to desktop');
+        const columns  = document.querySelectorAll('.modal_col');
+        columns.forEach(column => {
+            column.innerHTML = '';
+        })
+        
+        if (state.relatedImagesDataArray.length === 0) return;
+        addRelatedImages(state.relatedImagesDataArray);
+    }
+})
+
+newObserver.observe(ModalDesktopContainer);
