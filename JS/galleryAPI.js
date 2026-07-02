@@ -55,7 +55,7 @@ const fetchData = async (pageNum = 1, query) => {
             });
             renderImages(data);
         }
-        console.log('all images data array: ' ,state.allImagesData)
+        // console.log('all images data array: ' ,state.allImagesData)
 
 
     } catch (error) {

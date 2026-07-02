@@ -1,7 +1,7 @@
-export { Observer, renderImages, isGalleryLoading };
+export { renderImages, isGalleryLoading };
 import { getShortestColumn, LoadImages, getMainGrid } from "./utils.js";
 import { state } from "./galleryStates.js";
-import { fetchData } from "./galleryAPI.js";
+import { Observer } from "./allObservers.js";
 
 
 const loadingTemplate = document.getElementById('modal_gallery_loading_temp');
@@ -13,26 +13,6 @@ const galleryParent = document.querySelector('.image_grid_parent');
 // SENTINEL DIV ELEMENT FOR CONTINUOUS OBSERVATION
 const sentinel = document.querySelector('.sentinel');
 
-// =================== INTERSECTION OBSERVER LOGIC FOR PAGINATION (INFINITE SCROLL LOGIC) =====================
-const Observer = new IntersectionObserver(entries => {
-    const lastElem = entries[0];
-    if (!lastElem.isIntersecting) return;
-
-    if (state.loading) return;
-
-    if (state.isUserSearching === false) {
-        state.page++;
-        fetchData(state.page);
-        console.log(state.page);
-    } else {
-        state.queryPage++;
-        console.log(state.queryPage);
-        fetchData(state.queryPage, state.query);
-    }
-
-}, {
-});
-
 // ======================= FUNCTION FOR LOADING & ERROR SATES OF UI ========================
 const isGalleryLoading = () => {
     if (state.loading === true) {
@@ -41,10 +21,20 @@ const isGalleryLoading = () => {
         )
         // console.log('loaders appended')
     } else if (state.loading === 'error') {
+        // if there already error warning exists then remove it first then show a new and just 1 error card 
+        const errorCard = galleryParent.querySelector('.error_card');
+        if (errorCard) {
+            errorCard.remove()
+        }
         galleryParent.append(errorTemplate.content.cloneNode(true));
         Observer.unobserve(sentinel);
     }
     else if (state.loading === 'invalid') {
+        // if there already error warning exists then remove it first then show a new and just 1 error card 
+        const errorCard = galleryParent.querySelector('.invalid_error_card');
+        if (errorCard) {
+            errorCard.remove()
+        }
         galleryParent.append(
             invalidErrorTemplate.content.cloneNode(true)
         )
@@ -60,8 +50,8 @@ const isGalleryLoading = () => {
 
 // ========================= PRIMARY RENDER FUNCTION ============================
 const renderImages = (photos, clear, Query) => {
-    console.log('render function ran')
-    console.log('all images data array: ', state.allImagesData)
+    console.log('render function ran!')
+    // console.log('all images data array: ', state.allImagesData)
     // /*
     //  * GET MAIN GRID BY SCREEN SIZE
     //  * columns = GET ALL COLUMNS IN MAIN GRID

@@ -22,8 +22,10 @@ const state = {
     
     // ================================================================================================
     relatedImagesDataArray: [],
-    heroImageDataArray: [],
     modalLoading: false,
+
+    mainPhotoIDOnModal: '',
+    modalPage: 1,
 
     // THIS COLUMN HEIGHTS FOR GETTING SHORTEST COLUMN IN MODAL GALLERY GRID.
     modalDesktopColumnHeights: [0, 0, 0],

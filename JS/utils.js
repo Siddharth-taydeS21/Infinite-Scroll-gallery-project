@@ -1,4 +1,4 @@
-export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText, getMainModalGrid, clearModalColumns };
+export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText, getMainModalGrid, clearModalContent };
 import { state } from "./galleryStates.js";
 
 // =================== GETTING SHORT COLUMN TO APPEND IMAGES FROM API RESPONSE ================= 
@@ -127,16 +127,37 @@ const trunCateText = (text, length) => {
     return text.slice(0, length) + '...';
 }
 
-const clearModalColumns = () => {
+const clearModalContent = () => {
     const likeIcon = document.getElementById('like_icon');
     const unlikeIcon = document.getElementById('unlike_icon')
 
     likeIcon.classList.add('hidden');
     unlikeIcon.classList.remove('hidden');
 
+    // Clearing image modal UI content
+    const img = document.querySelector('.main_img');
+    if (img) {   
+        img.remove();
+    }
+
+    const userNameElement = document.querySelector('.user_Name');
+    const userBioElement = document.querySelector('.user_bio');
+    const userImageElement = document.querySelector('.user_img');
+    const DateElement = document.querySelector('.img_pub_date');
+    const likesElement = document.getElementById('img-Likes');
+    const viewsElement = document.getElementById('img-views');
+    const downloadsElement = document.getElementById('img-downloads');
+
+    userNameElement.textContent = 'No details to preview';
+    userBioElement.textContent = 'No details to preview';
+    userImageElement.scr = '';
+    DateElement.textContent = '';
+    likesElement.textContent = '';
+    viewsElement.textContent = '';
+    downloadsElement.textContent = '';
+
     const htmlContainer = getMainModalGrid();
     const columns = htmlContainer.querySelectorAll('.modal_col');
-
     columns.forEach(col => {
         col.innerHTML = '';
     })

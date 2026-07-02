@@ -1,7 +1,7 @@
-export { fetchImageData };
+export { fetchImageData, fetchRelatedImages };
 import { state } from "./galleryStates.js";
 import { addHeroCardDetails, addRelatedImages, isModalGalleryLoading } from "./imageDetailsUI.js";
-import { clearModalColumns } from "./utils.js";
+import { clearModalContent } from "./utils.js";
 
 
 const key = import.meta.env.VITE_key;
@@ -12,7 +12,14 @@ window.addEventListener('click', (e) => {
     // we can check the target is image or not here 
     const id = e.target.getAttribute('data-id');
     if (!id) return;
-    clearModalColumns();
+
+    //If the previous image model is left with some data rendered on UI, then clearing it fist
+    clearModalContent();
+
+    // Resetting Modal states for new image modal which gonna be created
+    state.mainPhotoIDOnModal = id;
+    state.modalPage = 1;
+    state.relatedImagesDataArray = [];
     fetchImageData(id);
 })
 
@@ -37,6 +44,9 @@ const fetchRelatedImages = async ( id, pageNum = 1) => {
 
         const data = await response.json();
         console.log(data);
+        data.results.forEach(el => {
+            state.relatedImagesDataArray.push(el);
+        });
         addRelatedImages(data.results);
     }
     catch (error) {
@@ -70,7 +80,7 @@ const fetchImageData = async (id) => {
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         addHeroCardDetails(data)
         fetchRelatedImages(id);
     }

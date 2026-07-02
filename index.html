@@ -128,8 +128,20 @@
                     </div>
                 </template>
 
+                <template id="img_error_temp">
+                    <div class="img_error_card w-full my-35 grid justify-center items-center gap-4 text-center">
+                        <div
+                            class="error_logo_wrapper size-[60px] flex justify-center items-center rounded-full shadow-sm border border-gray-200 justify-self-center">
+                            <i class="ri-cloud-off-line font-semibold text-3xl text-gray-500"></i>
+                        </div>
+                        <div class="error_massage w-full grid justify-center text-cente">
+                            <h1 class="text-lg text-gray-500 font-semibold">Oops something went wrong</h1>
+                        </div>
+                    </div>
+                </template>
+
                 <template id="Invalid_error_template">
-                    <div class="error_card w-full my-35 grid justify-center items-center gap-4 text-center">
+                    <div class="invalid_error_card w-full my-35 grid justify-center items-center gap-4 text-center">
                         <div
                             class="error_logo_wrapper size-[80px] flex justify-center items-center rounded-full shadow-sm border border-gray-200 justify-self-center">
                             <i class="ri-cloud-off-line font-semibold text-3xl text-gray-500"></i>
@@ -148,13 +160,13 @@
         </section>
         <section class="image_modal_section">
             <dialog id="image_modal"
-                class="bg-white mx-auto max-w-[1350px] rounded mt-4 scrollbar-thin scrollbar-thumb-gray-300">
+                class="bg-white mx-auto w-full max-w-[1350px] rounded mt-4 scrollbar-thin scrollbar-thumb-gray-300">
                 <div class="w-full p-4 mx-auto grid gap-y-10 relative">
                     <button id="close-modal"
                         class="absolute top-4 right-4 bg bg-white w-fit p-[.4rem_.7rem] rounded-md shadow-sm">
                         <i class="ri-close-large-line"></i>
                     </button>
-                    <div class="hero_image_container grid gap-y-4">
+                    <div class="hero_image_container w-full grid gap-y-4">
                         <div class="user_details flex justify-start gap-2 items-center">
 
                             <div class="user_img_wrapper size-12 overflow-hidden rounded-full border border-gray-400">
@@ -168,7 +180,7 @@
                         </div>
 
                         <div
-                            class="main_image_container h-[75vh] max-h-[75vh] overflow-hidden bg-gray-50 rounded animate-pulse relative">
+                            class="main_image_container w-full h-[75vh] max-h-[75vh] overflow-hidden bg-gray-50 rounded animate-pulse relative">
                             <!-- <img src="" alt="" class="main_img h-full object-contain mx-auto"> -->
                             <div
                                 class="spinner size-[30px] border-3 border-gray-200 border-t-gray-300 border-l-gray-300 rounded-full animate-spin absolute top-0 left-0 right-0 bottom-0 m-auto z-1">

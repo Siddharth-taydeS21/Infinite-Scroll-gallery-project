@@ -1,7 +1,10 @@
 import { state } from "./galleryStates.js";
-import { renderImages, Observer } from "./galleryUI.js";
+import { fetchData } from "./galleryAPI.js";
+import { renderImages } from "./galleryUI.js";
+import { addRelatedImages } from "./imageDetailsUI.js";
+import { fetchRelatedImages } from "./imageDetailsAPI.js";
 
-export { LayoutObserver }
+export { LayoutObserver, Observer, modalObserver }
 
 const desktopContainer = document.querySelector('.desktop_container');
 const tabletContainer = document.querySelector('.tablets_container');
@@ -9,6 +12,48 @@ const mobileContainer = document.querySelector('.mobiles_container');
 
 const sentinel = document.querySelector('.sentinel');
 
+// ================================= MAIN MASONRY GRID'S INFINITE SCROLL OBSERVER FOR PAGINATION ========================================
+// =================== INTERSECTION OBSERVER LOGIC FOR PAGINATION (INFINITE SCROLL LOGIC) =====================
+
+const Observer = new IntersectionObserver(entries => {
+    const lastElem = entries[0];
+    if (!lastElem.isIntersecting) return;
+
+    if (state.loading) return;
+
+    if (state.isUserSearching === false) {
+        state.page++;
+        console.log('main page: ' ,state.page);
+        fetchData(state.page);
+    } else {
+        state.queryPage++;
+        console.log('query page: ',state.queryPage);
+        fetchData(state.queryPage, state.query);
+    }
+
+}, {
+    rootMargin: "300px",
+});
+
+// ============================== INTERSECTION OBSERVER FOR INFINITE SCROLL IN IMAGE MODAL POPUP ===============================
+const modalSentinel = document.querySelector('.modal_sentinel');
+
+const modalObserver = new IntersectionObserver((entries) => {
+    const el = entries[0];
+    if(!el.isIntersecting) return;
+
+    if(state.modalLoading === true) return; 
+
+    state.modalPage++;
+    console.log('modal page: ', state.modalPage);
+    fetchRelatedImages(state.mainPhotoIDOnModal, state.modalPage);
+}, {
+    rootMargin: "300px",
+})
+
+modalObserver.observe(modalSentinel)
+
+// ================================= MAIN MASONRY GRID'S LAYOUT SHIFTS OBSERVER ========================================
 const LayoutObserver = new IntersectionObserver((entries) => {
     let desktopLayout;
     let tabletLayout;

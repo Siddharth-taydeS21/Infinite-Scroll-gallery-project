@@ -1,6 +1,7 @@
 export { addHeroCardDetails, addRelatedImages, isModalGalleryLoading };
 import { state } from "./galleryStates.js";
-import { getFormattedDate, trunCateText, LoadImages, getMainModalGrid, getShortestColumn } from "./utils.js";
+import { getFormattedDate, trunCateText, LoadImages, getMainModalGrid, getShortestColumn, clearModalContent } from "./utils.js";
+import { modalObserver } from "./allObservers.js";
 
 const imgModal = document.getElementById('image_modal');
 const modalGalleryParent = document.querySelector('.modal_gallery_parent');
@@ -14,24 +15,36 @@ const likesElement = document.getElementById('img-Likes');
 const viewsElement = document.getElementById('img-views');
 const downloadsElement = document.getElementById('img-downloads');
 
+const mainImageContainer = document.querySelector('.main_image_container');
+
 const loadingTemplate = document.getElementById('modal_gallery_loading_temp');
+const mainImgLoading = document.querySelector('.spinner')
 const errorTemplate = document.getElementById('gallery_error_template');
+const imgErrorTemp = document.getElementById('img_error_temp');
 const invalidErrorTemplate = document.getElementById('Invalid_error_template');
 
+const modalSentinel = document.querySelector('.modal_sentinel');
 // ============================== LIKE UNLIKE EFFECT FOR IMAGE MODAL ===============================
 
 const likeBtn = document.getElementById('like_btn');
 const likeIcon = document.getElementById('like_icon');
 const unlikeIcon = document.getElementById('unlike_icon')
 
-let likesCount = 0;
 
 const like = () => {
     likeIcon.classList.toggle('hidden');
     unlikeIcon.classList.toggle('hidden');
-    const likes = likesElement.textContent;
-    likesCount++; 
-    likesElement.textContent = Number(likes) + 1;
+
+    let likesCount;
+
+    const likes = document.querySelector('#img-Likes');
+    if (likes.textContent.includes(',')) {
+        likesCount = Number(likes.textContent.replace(',', ''));
+    }else{
+        likesCount = Number(likes.textContent);
+    }
+    let num = likesCount + 1;
+    likesElement.textContent = num.toLocaleString('en-US');
 }
 likeBtn.addEventListener('click', like)
 
@@ -44,14 +57,42 @@ const isModalGalleryLoading = () => {
         )
     }
     else if (state.modalLoading === 'error') {
+        // if there already error warning exists then remove it first then show a new and just 1 error card 
+        const errorCard = modalGalleryParent.querySelector('.error_card');
+        if (errorCard) {
+            errorCard.remove()
+        }
         modalGalleryParent.append(
             errorTemplate.content.cloneNode(true)
+        );
+
+        const userImageElement = document.querySelector('.user_img');
+        userImageElement.src = './assets/user-image-error.png';
+
+        const spinner = mainImageContainer.querySelector('.spinner')
+        if (spinner) {
+            spinner.remove();
+        }
+        const ImgError = mainImageContainer.querySelector('.img_error_card');
+        if (ImgError) {
+            ImgError.remove();
+        }
+        mainImageContainer.append(
+            imgErrorTemp.content.cloneNode(true)
         )
+
+        modalObserver.unobserve(modalSentinel);
     }
     else if (state.modalLoading === 'invalid') {
+        // if there already error warning exists then remove it first then show a new and just 1 error card 
+        const errorCard = modalGalleryParent.querySelector('.invalid_error_card');
+        if (errorCard) {
+            errorCard.remove()
+        }
         modalGalleryParent.append(
             invalidErrorTemplate.content.cloneNode(true)
         )
+        modalObserver.unobserve(modalSentinel);
     }
     else if (state.modalLoading === false) {
         const loader = modalGalleryParent.querySelector('.spinner');
@@ -64,7 +105,9 @@ const isModalGalleryLoading = () => {
 // ================================ PRIMARY RENDER FUNCTION FOR MODAL GALLERY =====================================
 
 const addRelatedImages = (photos) => {
-    console.log('fetchRelatedImages UI function ran')
+    console.log('fetchRelatedImages UI function ran!');
+    console.log('items in backup data array: ', state.relatedImagesDataArray.length)
+
     const htmlContainer = getMainModalGrid();
     const columns = htmlContainer.querySelectorAll('.modal_col');
 
@@ -115,32 +158,15 @@ const addRelatedImages = (photos) => {
     })
     LoadImages('grid_item_parent', 'grid_item');
     imgModal.showModal();
+    
+    // OBSERVE SENTINEL, IF IT'S INTERSECTING THEN FETCH NEXT PAGE AND SHOW RESULTS ON UI
+    modalObserver.observe(modalSentinel);
 
-    // ADDING CLICK EVENT LISTENER, SO WE CAN GRAB THE CLICKED IMG ELEMENT AND REPEAT THIS SHOW NEW IMAGE MODAL FLOW;
-    htmlContainer.addEventListener('click', (e) => {
-        // we can check the target is image or not here 
-        const id = e.target.getAttribute('data-id');
-        if (!id) return;
-        console.log(id, e.target);
-    })
-
-    // WE NEED TO ADD EVENT LISTENER HERE TO CLOSE THE IMAGE POPUP MODAL, MAKE SURE YOUR CLEARING THE CURRENT HTML CONTAINER COLUMNS BEFORE CLOSING THE IMAGE MODAL
+    // EVENT LISTENER TO CLOSE THE IMAGE POPUP MODAL, MAKING SURE THAT WE ARE CLEARING THE CURRENT MODAL UI CONTENT & COLUMNS WHEN THE USER CLOSES IMAGE MODAL
     const closeModelBtn = document.getElementById('close-modal');
     closeModelBtn.addEventListener('click', () => {
-        // removing the hero image before closing the image modal so when user clicks on other image to see the image with new modal popup, we are making sure the previous image should not be there
-        const img = mainImgElement.querySelector('.main_img')
-
-        // REMOVING THE PREVIOUS MODELS IMAGE SO THE NEW MODEL WILL NEWLY LOAD IT'S IMAGE  
-        img.remove();
-
-        // IF USER LIKED THE IMAGE, THEN MAKING THE LIKE ICON BLACK AGAIN SO I DOSEN'T STAY LIKED WHEN USER OPENS NEW IMAG MODAL 
-        likeIcon.classList.add('hidden');
-        unlikeIcon.classList.remove('hidden');
+        clearModalContent();
         imgModal.close();
-
-        columns.forEach(col => {
-            col.innerHTML = '';
-        })
     });
 }
 
@@ -148,7 +174,7 @@ const addRelatedImages = (photos) => {
 
 const addHeroCardDetails = (obj) => {
     // if (!obj.length) return;
-    console.log(obj)
+    // console.log(obj)
     const mainImgUrl = obj.urls.full;
     const userName = obj.user.first_name;
     const bio = trunCateText(obj.user.bio, 60);

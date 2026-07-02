@@ -1,5 +1,5 @@
 import { fetchData } from "./galleryAPI.js";
-import { LayoutObserver } from "./layoutObserver.js";
+import { LayoutObserver } from "./allObservers.js";
 import { fetchImageData } from "./imageDetailsAPI.js";
 import { addRelatedImages, isModalGalleryLoading } from "./imageDetailsUI.js";
 
@@ -37,7 +37,7 @@ setInterval(() => {
 
 // arrow on scrollDown
 
-fetchData()
+// fetchData()
 // fetchImageData()
 
 // const modal = document.getElementById('image_modal');
