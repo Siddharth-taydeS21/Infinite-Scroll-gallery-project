@@ -61,9 +61,6 @@ const fetchRelatedImages = async ( id, pageNum = 1) => {
 
 // ======================= FETCHING HERO IMAGE CARD DATA ======================== 
 const fetchImageData = async (id) => {
-    // important checks checks for render function no need of these here
-    // if (state.heroImageDataArray.length === 0) return;
-    // if (state.relatedImagesDataArray.length === 0) return;
 
     if (!id) return;
     let url = `https://api.unsplash.com/photos/${id}`;

@@ -51,25 +51,9 @@ const isGalleryLoading = () => {
 // ========================= PRIMARY RENDER FUNCTION ============================
 const renderImages = (photos, clear, Query) => {
     console.log('render function ran!')
-    // console.log('all images data array: ', state.allImagesData)
-    // /*
-    //  * GET MAIN GRID BY SCREEN SIZE
-    //  * columns = GET ALL COLUMNS IN MAIN GRID
-    //  * 
-    //  * checks = 1) if (state.queryPage <= 1) columns.forEach => col.clearHTML first then append
-    //  * 
-    //  * PHOTOS.forEach => 
-    //  * heightsArray = GET HEIGHT ARRAY FROM STATE.COLUMN HEIGHTS
-    //  * shortIndex = GET SHORTEST INDEX FORM STATE.COLUMN HEIGHTS IN STATE OBJECT == [WE NEED TO CHANGE THE LENGTH OF THIS ARRAY ON THE BASIC OF SCREEN SIZE] 
-    //  * columns[shortIndex].append(photo);
-    //  * heightsArray[shortIndex] += photo.height / photo.width
-    //  */
 
     const htmlContainer = getMainGrid();
-    // console.log(htmlContainer);
     const columns = htmlContainer.querySelectorAll('.col');
-    // console.log(columns)
-
 
     // IF USER IS SEARCHING WITH NEW QUERY, MAKING THE HTML CONTAINER EMPTY
     if (clear && state.queryPage === 1) {
@@ -78,7 +62,6 @@ const renderImages = (photos, clear, Query) => {
             col.innerHTML = '';
         })
     }
-    // console.log('state query page check done')
 
     let query;
     if (Query) {
@@ -86,7 +69,6 @@ const renderImages = (photos, clear, Query) => {
     } else {
         query = null;
     };
-    // console.log('query null check done')
 
     // WHILE FETCHING NEXT PAGE, IF WE GOT ERROR, THEN RETURN AND SHOW ERROR MASSAGE  
     if (photos.length === 0) {
@@ -99,15 +81,8 @@ const renderImages = (photos, clear, Query) => {
         isGalleryLoading();
         return;
     }
-    // else{
-    //     errorTemplate.remove()
-    //     galleryParent.append(
-    //         spinLoadingTemplate.content.cloneNode(true)
-    //     )
-    // }
-    // console.log('photos length is not 0')
 
-    // console.log(photos)
+
     photos.forEach(img => {
         const imgId = img.id;
         const blurredImgUlr = img.urls.thumb;
@@ -129,9 +104,6 @@ const renderImages = (photos, clear, Query) => {
             heights = state.desktopColumnHeights
             index = getShortestColumn(heights);
         };
-        // console.log(heights)
-        // console.log(index)
-
 
         // COLUMN =  columns[SHORT INDEX]
         const column = columns[index];

@@ -10,6 +10,7 @@
 }
 
 @layer base {
+    /* =============================== BASE CLASSES ============================== */
     * {
         @apply m-0 p-0 box-border font-google-sans;
     }
@@ -23,11 +24,11 @@
     }
 
     nav {
-        @apply w-full max-w-7xl p-4 mx-auto flex justify-between items-center;
+        @apply w-full max-w-7xl p-4 mx-auto flex justify-end items-center gap-4 sm:gap-8;
     }
 
     main {
-        @apply w-full;
+        @apply w-full relative;
     }
 
     section,
@@ -42,21 +43,60 @@
 }
 
 @layer utilities {
+    /* =================================== REUSABLE CLASSES ======================================== */
     .container {
         @apply w-full max-w-7xl p-4 mx-auto;
     }
 
     .social_link {
-        @apply text-3xl text-gray-500 transition-colors hover:text-gray-700 duration-200;
+        @apply text-3xl text-gray-400 transition-colors hover:text-gray-700 duration-200;
     }
 
+    /* =================================== REUSABLE CLASSES FOR IMAGE MODAL POPUP ======================================== */
+
     .modal_col{
-        @apply w-full h-fit grid gap-y-3;
+        @apply w-full h-fit ;
     }
 
     .views, .downloads, .likes{
         @apply flex flex-col gap-1;
     } 
+
+     /* =================================== REUSABLE CLASSES FOR FOOTER MODAL POPUP ======================================== */
+
+    nav .logo {
+        @apply mr-auto;
+    }
+
+    nav .footer_toggle{
+        @apply text-xl font-semibold px-1 rounded shadow-md border border-gray-100;
+    }
+
+    #footer_Modal{
+        @apply p-0 w-[95%] max-w-[1350px] h-fit my-4 rounded-xl bg-white mx-auto absolute top-11 left-0 right-0 z-100 border-2 border-gray-400 focus:border-none focus:outline-none focus:ring-0;
+    }
+
+     /* =================================== REUSABLE CLASSES FOR PROFILE MODAL POPUP ======================================== */
+
+    #profile_Modal{
+        @apply p-0 w-full sm:w-[70%] max-w-[1350px] h-fit my-4 rounded-xl mx-auto absolute top-11 left-0 right-0 z-100 focus:border-none focus:outline-none focus:ring-0 bg-transparent scrollbar-none;
+    }
+
+    .profile_container{
+        @apply w-[300px] md:w-[400px] m-2 rounded-2xl bg-white border-2 border-gray-400 shadow-sm transition-shadow duration-200 hover:shadow-md mx-auto sm:ml-auto sm:mr-0;
+    }
+
+    .profile_close{
+        @apply focus:border-none focus:outline-none focus:ring-0;
+    }
+
+    #input_photo, #input_bio, #input_userName{
+        @apply block w-full p-2 rounded border-2 border-gray-300;
+    }
+
+    #footer_Modal::backdrop, #profile_Modal::backdrop{
+        @apply bg-[rgb(0,0,0,0.3)];
+    }
 
 }
 

@@ -142,7 +142,7 @@ LayoutObserver.observe(tabletContainer);
 LayoutObserver.observe(mobileContainer);
 LayoutObserver.observe(ModalMobileContainer);
 
-// SINGLE OBSERVER FOR THE MODAL DESKTOP CONTAINER BECAUSE PRIMARY OBSERVER FUNCTION NOT WORKING ON THIS CONTAINER 
+// SINGLE OBSERVER FOR THE MODAL DESKTOP CONTAINER BECAUSE PRIMARY OBSERVER FUNCTION IS NOT WORKING ON THIS CONTAINER 
 const newObserver = new IntersectionObserver((entries) => {
     const el = entries[0];
     if (el.isIntersecting) {

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./CSS/output.css">
 
     <!--  ==================== MAIN JS FILE ===================== -->
-    <title>Infinite Scroll Gallery</title>
+    <title>Infinite Scroll Gallery | Made By Siddharth</title>
 </head>
 
 <body>
@@ -26,16 +26,19 @@
 
             <div class="user_profile flex justify-center gap-2 items-center">
                 <i class="ri-arrow-drop-down-line"></i>
-                <h1 class="user_name hidden sm:flex">Siddharth</h1>
+                <h1 class="user_name hidden sm:flex">My profile</h1>
                 <div class="image_warpper size-[35px] bg-gray-600 rounded-full overflow-hidden">
-                    <img src="./assets/Image-gallery-favicon.png" alt="" class="user-Image">
+                    <img src="./assets/dfault-user-img.png" alt="" class="user-Image">
                 </div>
             </div>
+
+            <a href="#" id="footer_toggle" class="text-xl font-semibold transition-all duration-300">
+                <i class="ri-menu-fill"></i>
+            </a>
         </nav>
     </header>
 
     <main>
-
         <section class="imag-grid">
             <div class="container grid gap-6">
                 <div class="title_and_searchBar_container grid gap-3 sm:grid-cols-2">
@@ -80,27 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sentinel"></div>
-
-
-
-                <!-- dummy images for testing -->
-                <!-- <div class="grid_item"><img src="./assets/photo-1.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-2.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-4.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-5.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-6.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-7.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-8.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-9.avif" alt="image" srcset=""></div>
-                        <div class="grid_item"><img src="./assets/photo-10.avif" alt="image" srcset=""></div>                       -->
-
-                <!-- =================== IMAGES LOADERS TEMPLATE (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->
-                <template id="loading_images_template">
-                    <div class="loaders w-full h-[500px] bg-gray-300 mb-4 rounded animate-pulse"></div>
-                    <div class="loaders w-full h-[300px] bg-gray-300 mb-4 rounded animate-pulse"></div>
-                </template>
+                <div class="sentinel"></div>     
 
                 <template id="loading_spinner_template">
                     <div
@@ -128,6 +111,7 @@
                     </div>
                 </template>
 
+                <!-- =================== IMAGES CONTAINER ERROR TEMPLATE FOR IMAGE POPUP MODAL (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->
                 <template id="img_error_temp">
                     <div class="img_error_card w-full my-35 grid justify-center items-center gap-4 text-center">
                         <div
@@ -140,6 +124,7 @@
                     </div>
                 </template>
 
+                 <!-- =================== INVALID ERROR TEMPLATE (ITS NOT VISIBLE ON MAIN PAGE) ==================== -->
                 <template id="Invalid_error_template">
                     <div class="invalid_error_card w-full my-35 grid justify-center items-center gap-4 text-center">
                         <div
@@ -153,8 +138,6 @@
                         </div>
                     </div>
                 </template>
-
-
 
             </div>
         </section>
@@ -185,11 +168,11 @@
                             <div
                                 class="spinner size-[30px] border-3 border-gray-200 border-t-gray-300 border-l-gray-300 rounded-full animate-spin absolute top-0 left-0 right-0 bottom-0 m-auto z-1">
                             </div>
-                                <div class="main_img_wrapper bg-cover bg-no-repeat h-full blur-xl opacity-0">
-                                    <img src="./assets/photo-1.avif" alt=""
-                                        class="main_img h-full object-contain mx-auto transition-opacity duration-400 opacity-0"
-                                        loading="lazy">
-                                </div>
+                            <div class="main_img_wrapper bg-cover bg-no-repeat h-full blur-xl opacity-0">
+                                <img src="./assets/photo-1.avif" alt=""
+                                    class="main_img h-full object-contain mx-auto transition-opacity duration-400 opacity-0"
+                                    loading="lazy">
+                            </div>
                         </div>
 
                         <div class="published_date">
@@ -229,7 +212,7 @@
                     <h1 class="text-xl lg:text-2xl font-semibold">Explore more Related Images..</h1>
 
                     <div class="modal_gallery_parent">
-                        <div class="modal_desktop_container hidden md:grid grid-cols-3 gap-4">
+                        <div class="modal_desktop_container hidden md:grid grid-cols-3 gap-x-4">
                             <div class="modal_col">
                                 <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
                                 <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
@@ -244,7 +227,7 @@
                             </div>
                         </div>
 
-                        <div class="modal_mobile_container grid md:hidden grid-cols-2 gap-4">
+                        <div class="modal_mobile_container grid md:hidden grid-cols-2 gap-x-4">
                             <div class="modal_col">
                                 <!-- <div class="grid_item invisible"><img src="./assets/photo-2.avif" alt="image" srcset=""></div> -->
                                 <!-- <div class="grid_item"><img src="./assets/photo-3.avif" alt="image" srcset=""></div> -->
@@ -265,69 +248,133 @@
                 </div>
             </template>
         </section>
+
+
+        <dialog id="footer_Modal">
+            <div class="footer_wrapper w-full grid gap-10">
+                <div class="container grid gap-y-12 justify-center sm:grid-cols-[470px] md:grid-cols-2 m-10 mb-0">
+                    <div class="footer_data grid gap-8 px-4 md:px-10">
+                        <div class="footer_info grid gap-4 mb-4">
+                            <a href="#"
+                                class="logo flex items-center gap-2  focus:border-none focus:outline-none focus:ring-0">
+                                <i class="ri-image-ai-fill text-2xl"></i>
+                                <span class="text-xl md:text-2xl font-semibold">Image Gallery</span>
+                            </a>
+
+                            <p class="footer_description text-sm text-gray-500">
+                                Explore something Beautiful, unique, unwatched, <br> exiting with us every time..
+                            </p>
+                        </div>
+
+                        <div class="footer_socials flex gap-x-3">
+                            <a href="https://www.linkedin.com/in/siddharth-tayde-7a9547318/" target="_blank"
+                                class="social_link">
+                                <i class="ri-linkedin-box-fill"></i>
+                            </a>
+
+                            <a href="https://www.instagram.com/siddhartxthetic/" target="_blank" class="social_link">
+                                <i class="ri-instagram-fill"></i>
+                            </a>
+
+                            <a href="https://x.com/SiddharthS21" target="_blank" class="social_link">
+                                <i class="ri-twitter-x-line"></i>
+                            </a>
+
+                            <a href="https://github.com/Siddharth-taydeS21" target="_blank" class="social_link">
+                                <i class="ri-github-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer_content grid gap-12 md:justify-end px-4 md:px-10">
+                        <div class="footer_newsLatter xl:w-[350px] text-center">
+                            <h3 class="footer_title font-semibold mb-2 text-xl md:text-2xl">Stay Connected</h3>
+
+                            <p class="text-sm text-gray-500 transition-colors duration-300">
+                                Questions or feedback? we'd love <br> to hear from you.
+                            </p>
+
+                            <form action=""
+                                class="footer_form mt-8 bg-white w-full flex p-3 rounded-md shadow-sm xs:w-[300px] xl:w-[350px] transition-shadow duration-200 hover:shadow-md border border-gray-100 hover:border-gray-200">
+                                <input type="email" class="footer_input w-full bg-transparent pl-2 text-title-color"
+                                    placeholder="Email address">
+
+                                <button
+                                    class="footer_button size-[35px] rounded-md border border-gray-200 text-xl font-bold shadow-sm transition-colors cursor-pointer">
+                                    <i class="ri-arrow-right-s-line"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr class="text-gray-400 w-full max-w-7xl mx-auto">
+
+                <span class="text-sm text-gray-500 text-center mb-10">&#169; Project Developed by <a
+                        href="https://www.instagram.com/siddhartxthetic/">@Siddharth</a></span>
+            </div>
+        </dialog>
+
+        <dialog id="profile_Modal">
+            <div class="profile_modal_wrapper">
+                <div class="profile_container grid gap-y-8">
+                    <div class="header flex justify-between items-center m-4 mb-0">
+                        <h1 class="text-xl font-semibold">My profile</h1>
+                        <button class="profile_close">
+                            <i class="ri-close-large-fill"></i>
+                        </button>
+                    </div>
+
+                    <hr>
+
+                    <div class="user_details grid mx-4 mt-0 mb-4">
+                        <small id="photo-msg" class="text-gray-500 mb-2">Add your profile picture</small>
+                        <div
+                            class="profile_Img_wrapper size-[80px] rounded-full overflow-hidden mb-4 border-2 border-blue-300">
+                            <img src="./assets/dfault-user-img.png" alt="image" class="user-Image">
+                        </div>
+                        <small class="text-gray-500">Nick Name :</small>
+                        <h1 class="user_Name mb-2">Add your nick name</h1>
+
+                        <small class="text-gray-500">Bio :</small>
+                        <h1 class="user_Bio text-sm text-gray-600">Add your bio</h1>
+                    </div>
+
+                    <hr>
+
+                    <div class="edit-form gap-2 hidden mx-4">
+                        <label for="input_userNmae">New User name :</label>
+                        <input type="text" id="input_userName">
+
+                        <label for="input_bio">New bio :</label>
+                        <input type="text" id="input_bio" required>
+
+                        <label for="input_photo">New photo (link) :</label>
+                        <input type="text" id="input_photo" required>
+                    </div>
+
+                    <div class="add-edit-btn-warper flex gap-2 justify-end items-center m-4 mt-0">
+                        <button id="Cancel-btn"
+                            class="hidden font-semibold p-[.5rem_1rem] rounded border border-gray-300">Cancel</button>
+                        <button id="edit-profile-bnt"
+                            class="bg-purple-500 border border-purple-700 text-white font-semibold p-[.5rem_1rem] rounded">Add
+                            your Info</button>
+                        <button id="save-btn"
+                            class="hidden bg-purple-500 border border-purple-700 text-white font-semibold p-[.5rem_1rem] rounded">Save</button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
     </main>
 
-    <footer class="footer w-full p-4 grid gap-10 bg-gray-100">
-        <div class="container grid gap-y-12 justify-center sm:grid-cols-[470px] md:grid-cols-2">
-            <div class="footer_data grid gap-8">
-                <div class="footer_info grid gap-4 mb-4">
-                    <a href="#" class="logo flex items-center gap-2">
-                        <i class="ri-image-ai-fill text-2xl"></i>
-                        <span class="text-xl md:text-2xl font-semibold">Image Gallery</span>
-                    </a>
-
-                    <p class="footer_description">
-                        Explore something Beautiful, unique, unwatched, <br> exiting with us every time..
-                    </p>
-                </div>
-
-                <div class="footer_socials flex gap-x-3">
-                    <a href="https://www.linkedin.com/in/siddharth-tayde-7a9547318/" target="_blank"
-                        class="social_link">
-                        <i class="ri-linkedin-box-fill"></i>
-                    </a>
-
-                    <a href="https://www.instagram.com/siddhartxthetic/" target="_blank" class="social_link">
-                        <i class="ri-instagram-fill"></i>
-                    </a>
-
-                    <a href="https://x.com/SiddharthS21" target="_blank" class="social_link">
-                        <i class="ri-twitter-x-line"></i>
-                    </a>
-
-                    <a href="https://github.com/Siddharth-taydeS21" target="_blank" class="social_link">
-                        <i class="ri-github-fill"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="footer_content grid gap-12 md:justify-end">
-                <div class="footer_newsLatter xl:w-[350px] text-center">
-                    <h3 class="footer_title font-semibold mb-2 text-xl md:text-2xl">Stay Connected</h3>
-
-                    <p class="transition-colors duration-300">
-                        Questions or feedback? we'd love <br> to hear from you.
-                    </p>
-
-                    <form action=""
-                        class="footer_form mt-8 bg-white w-full flex p-3 rounded-md shadow-sm xs:w-[300px] xl:w-[350px]">
-                        <input type="email" class="footer_input w-full bg-transparent pl-2 text-title-color"
-                            placeholder="Email address">
-
-                        <button
-                            class="footer_button size-[35px] rounded-md border border-gray-200 text-xl font-bold shadow-sm transition-colors cursor-pointer">
-                            <i class="ri-arrow-right-s-line"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <hr class="text-gray-400 w-full max-w-7xl mx-auto">
-
-        <span class="text-sm text-gray-500 text-center">© 2026 All rights reserved.</span>
-    </footer>
+    <!--=============== SCROLL REVEAL ===============-->
+    <a href="main"
+        class="scrollUp fixed -bottom-full right-8 lg:right-16 flex justify-center items-center size-[56px] p-3 bg-white text-black rounded-md text-2xl font-bold shadow-lg border border-gray-200 transition-all duration-500 hover:-translate-y-4">
+        <i class="ri-arrow-up-fill"></i>
+    </a>
 
     <script type="module" src="./JS/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 
 </body>
 

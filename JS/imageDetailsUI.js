@@ -139,9 +139,6 @@ const addRelatedImages = (photos) => {
             heights = state.modalDesktopColumnHeights
             index = getShortestColumn(heights);
         };
-        // console.log(heights)
-        // console.log(index)
-
 
         // COLUMN =  columns[SHORT INDEX]
         const column = columns[index];
@@ -154,6 +151,7 @@ const addRelatedImages = (photos) => {
         </div>
         `;
 
+        //UPDATING HEIGHTS IN STATE COLUMN HEIGHTS
         heights[index] += img.height / img.width;
     })
     LoadImages('grid_item_parent', 'grid_item');
