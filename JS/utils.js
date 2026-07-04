@@ -1,5 +1,4 @@
 export { getShortestColumn, LoadImages, debounce, getMainGrid, getFormattedDate, trunCateText, getMainModalGrid, clearModalContent };
-import { state } from "./galleryStates.js";
 
 // =================== GETTING SHORT COLUMN TO APPEND IMAGES FROM API RESPONSE ================= 
 

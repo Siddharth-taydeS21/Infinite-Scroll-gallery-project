@@ -46,7 +46,6 @@ const fetchData = async (pageNum = 1, query) => {
 
 
         if (query) {
-            console.log(data.results, 'searching for :', query);
             if (data.results.length === 0) {
                 const errorCard = document.querySelector('.error_card');
                 if (errorCard) {
@@ -91,7 +90,6 @@ const fetchData = async (pageNum = 1, query) => {
 
 
     } catch (error) {
-        console.log(error);
         // SHOW THE ERROR UI HERE ON ERROR
         const columns = document.querySelectorAll('.col')
         columns.forEach(col => {
@@ -130,5 +128,3 @@ const debounceSearch = debounce(text => {
     // lose focus of search input 
     searchInput.blur();
 }, 1000)
-
-// networkAbortController();

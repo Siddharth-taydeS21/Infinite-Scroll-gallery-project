@@ -28,7 +28,6 @@ window.addEventListener('click', (e) => {
 })
 
 const fetchRelatedImages = async ( id, pageNum = 1) => {
-    console.log('fetchRelatedImages async function ran')
     state.modalLoading = true;
     isModalGalleryLoading();
 
@@ -47,14 +46,12 @@ const fetchRelatedImages = async ( id, pageNum = 1) => {
         }
 
         const data = await response.json();
-        console.log(data);
         data.results.forEach(el => {
             state.relatedImagesDataArray.push(el);
         });
         addRelatedImages(data.results);
     }
     catch (error) {
-        console.log(error);
         state.modalLoading = 'error';
         isModalGalleryLoading();
     } finally{
@@ -81,14 +78,13 @@ const fetchImageData = async (id) => {
         }
 
         const data = await response.json();
-        // console.log(data);
         addHeroCardDetails(data)
         fetchRelatedImages(id);
     }
     catch (error) {
-        console.log(error);
         state.modalLoading = 'error';
         isModalGalleryLoading();
+        alert('Something went wrong, Please Try again later..')
     } finally{
         state.modalLoading = false;
         isModalGalleryLoading();

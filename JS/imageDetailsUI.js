@@ -107,8 +107,6 @@ const isModalGalleryLoading = () => {
 // ================================ PRIMARY RENDER FUNCTION FOR MODAL GALLERY =====================================
 
 const addRelatedImages = (photos) => {
-    // console.log('fetchRelatedImages UI function ran!');
-    console.log('items in backup data array: ', state.relatedImagesDataArray.length)
 
     const htmlContainer = getMainModalGrid();
     const columns = htmlContainer.querySelectorAll('.modal_col');
@@ -141,7 +139,6 @@ const addRelatedImages = (photos) => {
             heights = state.modalDesktopColumnHeights
             index = getShortestColumn(heights);
         };
-        console.log(heights)
 
         // COLUMN =  columns[SHORT INDEX]
         const column = columns[index];

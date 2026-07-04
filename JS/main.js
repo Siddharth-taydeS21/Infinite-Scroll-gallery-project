@@ -1,8 +1,7 @@
 import { fetchData } from "./galleryAPI.js";
-import { getMainGrid } from "./utils.js";
 
 // MAIN LOGIC STARTER FUNCTION
-// fetchData()
+fetchData()
 
 // ============================== SECTION TITLE TYPE WRITER EFFECT ===============================
 const title = document.querySelector('.section_title');

@@ -19,7 +19,7 @@ const isGalleryLoading = () => {
         galleryParent.append(
             loadingTemplate.content.cloneNode(true)
         )
-        // console.log('loaders appended')
+
     } else if (state.loading === 'error') {
         // if there already error warning exists then remove it first then show a new and just 1 error card 
         const errorCard = galleryParent.querySelector('.error_card');
@@ -50,7 +50,6 @@ const isGalleryLoading = () => {
 
 // ========================= PRIMARY RENDER FUNCTION ============================
 const renderImages = (photos, clear, Query) => {
-    console.log('render function ran!')
 
     const htmlContainer = getMainGrid();
     const columns = htmlContainer.querySelectorAll('.col');
@@ -63,22 +62,33 @@ const renderImages = (photos, clear, Query) => {
         })
     }
 
-    // RESETTING THE COLUMNS HEIGHTS ARRAY IF USER SEARCHING WITH NEW QUERY
-    if (state.queryPage === 1 && columns.length === 1) {
-        state.mobileColumnHeights = [0];
-    }
-    else if (state.queryPage === 1 && columns.length === 2) {
-        state.tabletColumnHeights = [0, 0];
-    }
-    else if (state.queryPage === 1 && columns.length === 3) {
-        state.desktopColumnHeights = [0, 0, 0];
-    }
+
 
     let query;
     if (Query) {
-        query = Query
+        query = Query;
+        // RESETTING THE COLUMNS HEIGHTS ARRAY IF USER SEARCHING WITH NEW QUERY
+        if (state.queryPage === 1 && columns.length === 1) {
+            state.mobileColumnHeights = [0];
+        }
+        else if (state.queryPage === 1 && columns.length === 2) {
+            state.tabletColumnHeights = [0, 0];
+        }
+        else if (state.queryPage === 1 && columns.length === 3) {
+            state.desktopColumnHeights = [0, 0, 0];
+        }
     } else {
         query = null;
+        // RESETTING THE COLUMNS HEIGHTS ARRAY IF USER SEARCHING WITH NEW QUERY
+        if (state.page === 1 && columns.length === 1) {
+            state.mobileColumnHeights = [0];
+        }
+        else if (state.page === 1 && columns.length === 2) {
+            state.tabletColumnHeights = [0, 0];
+        }
+        else if (state.page === 1 && columns.length === 3) {
+            state.desktopColumnHeights = [0, 0, 0];
+        }
     };
 
     photos.forEach(img => {

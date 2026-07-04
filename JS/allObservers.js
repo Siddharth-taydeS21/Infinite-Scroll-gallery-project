@@ -27,11 +27,9 @@ const Observer = new IntersectionObserver(entries => {
 
     if (state.isUserSearching === false) {
         state.page++;
-        console.log('main page: ' ,state.page);
         fetchData(state.page);
     } else {
         state.queryPage++;
-        console.log('query page: ',state.queryPage);
         fetchData(state.queryPage, state.query);
     }
 
@@ -49,7 +47,6 @@ const modalObserver = new IntersectionObserver((entries) => {
     if(state.modalLoading === true) return; 
 
     state.modalPage++;
-    console.log('modal page: ', state.modalPage);
     fetchRelatedImages(state.mainPhotoIDOnModal, state.modalPage);
 }, {
     rootMargin: "300px",
@@ -83,7 +80,6 @@ const LayoutObserver = new IntersectionObserver((entries) => {
     // IF LAYOUT SIFTED TO DESKTOP
     if (desktopLayout &&  desktopLayout.isIntersecting) {
         Observer.unobserve(sentinel)
-        console.log('layout shifted to desktop')
         // IF LAYOUT SIFTED TO DESKTOP LAYOUT, THEN CLEAR ALL COLUMNS IN PREVIOUS AND OTHER LAYOUTS 
         const columns  = document.querySelectorAll('.col');
         columns.forEach(column => {
@@ -98,7 +94,6 @@ const LayoutObserver = new IntersectionObserver((entries) => {
     // IF LAYOUT SIFTED TO TABLETS
     if (tabletLayout &&  tabletLayout.isIntersecting) {
         Observer.unobserve(sentinel)
-        console.log('layout shifted to tablet')
         const columns  = document.querySelectorAll('.col');
         columns.forEach(column => {
             column.innerHTML = '';
@@ -111,7 +106,6 @@ const LayoutObserver = new IntersectionObserver((entries) => {
     // IF LAYOUT SIFTED TO MOBILE
     if (mobileLayout &&  mobileLayout.isIntersecting) {
         Observer.unobserve(sentinel)
-        console.log('layout shifted to mobile')
         const columns  = document.querySelectorAll('.col');
         columns.forEach(column => {
             column.innerHTML = '';
@@ -142,7 +136,6 @@ const ModalLayoutObserver = new IntersectionObserver((entries) => {
     })
 
     if (modalDesktopContainer && modalDesktopContainer.isIntersecting) {
-        console.log('Modal layout shifted to desktop');
         const container = getMainModalGrid();
         const columns = container.querySelectorAll('.modal_col');
         let testColumn;
@@ -159,16 +152,12 @@ const ModalLayoutObserver = new IntersectionObserver((entries) => {
     }
 
     if (modalMobileContainer && modalMobileContainer.isIntersecting) {
-        console.log('Modal layout shifted to Mobile');
         const container = getMainModalGrid();
-        // console.log(container)
         const columns = container.querySelectorAll('.modal_col');
-        // console.log(columns)
         let testColumn;
         columns.forEach(col => {
             testColumn = col.querySelectorAll('.grid_item_parent');
         });
-        // console.log(testColumn)
 
         if (testColumn.length > 0) return;
         const newColumns = document.querySelectorAll('.modal_col');
