@@ -35,7 +35,7 @@ setInterval(() => {
 // const main = document.querySelector('main');
 const scrollUp = document.querySelector('.scrollUp');
 window.addEventListener('scroll', () => {
-    if (window.scrollY >= 50) {
+    if (window.scrollY >= 200) {
         scrollUp.classList.remove('-bottom-full')
         scrollUp.classList.add('bottom-12')
     } else {

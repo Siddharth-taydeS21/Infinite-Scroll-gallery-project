@@ -11,7 +11,7 @@ const state = {
     page: 1,
     query: '',
     queryPage: 1,
-    loading: 'invalid',
+    loading: '',
     isUserSearching: false,
     
     // THIS COLUMN HEIGHTS FOR GETTING SHORTEST COLUMN IN MAIN GALLERY GRID.

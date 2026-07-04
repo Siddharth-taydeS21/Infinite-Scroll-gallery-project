@@ -42,17 +42,49 @@ const fetchData = async (pageNum = 1, query) => {
 
         const data = await response.json();
 
+        // WHILE FETCHING NEXT PAGE, IF WE GOT ERROR, THEN RETURN AND SHOW ERROR MASSAGE  
+
+
         if (query) {
             console.log(data.results, 'searching for :', query);
+            if (data.results.length === 0) {
+                const errorCard = document.querySelector('.error_card');
+                if (errorCard) {
+                    errorCard.remove();
+                }
+                const columns = document.querySelectorAll('.col')
+                columns.forEach(col => {
+                    col.innerHTML = '';
+                })
+                state.loading = 'invalid'; // SHOW ERROR : "INVALID KEYWORD" 
+                isGalleryLoading();
+                return;
+            };
+
             data.results.forEach(el => {
                 state.allImagesData.push(el);
             });
+
             renderImages(data.results, 'clear', query);
         } else {
-            // console.log(data);
+            if (data.length === 0) {
+                const errorCard = document.querySelector('.error_card');
+                if (errorCard) {
+                    errorCard.remove();
+                }
+                const columns = document.querySelectorAll('.col')
+                columns.forEach(col => {
+                    col.innerHTML = '';
+                })
+                state.loading = 'invalid'; // SHOW ERROR : "INVALID KEYWORD" 
+                isGalleryLoading();
+                return;
+            };
+
             data.forEach(el => {
                 state.allImagesData.push(el);
             });
+
             renderImages(data);
         }
         // console.log('all images data array: ' ,state.allImagesData)
@@ -61,6 +93,10 @@ const fetchData = async (pageNum = 1, query) => {
     } catch (error) {
         console.log(error);
         // SHOW THE ERROR UI HERE ON ERROR
+        const columns = document.querySelectorAll('.col')
+        columns.forEach(col => {
+            col.innerHTML = '';
+        })
         state.loading = 'error';
         isGalleryLoading();
 
@@ -80,7 +116,6 @@ const debounceSearch = debounce(text => {
         // RESTING THE QUERY DETAILS IN STATE ON EVERY SEARCH
         state.query = text;
         state.queryPage = 1;
-        state.columnHeights = [0, 0, 0];
         state.allImagesData = [];
 
         // IF GALLERY HAS ERROR ELEMENT, THEN REMOVE IT

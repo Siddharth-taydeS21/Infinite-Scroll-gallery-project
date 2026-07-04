@@ -63,25 +63,23 @@ const renderImages = (photos, clear, Query) => {
         })
     }
 
+    // RESETTING THE COLUMNS HEIGHTS ARRAY IF USER SEARCHING WITH NEW QUERY
+    if (state.queryPage === 1 && columns.length === 1) {
+        state.mobileColumnHeights = [0];
+    }
+    else if (state.queryPage === 1 && columns.length === 2) {
+        state.tabletColumnHeights = [0, 0];
+    }
+    else if (state.queryPage === 1 && columns.length === 3) {
+        state.desktopColumnHeights = [0, 0, 0];
+    }
+
     let query;
     if (Query) {
         query = Query
     } else {
         query = null;
     };
-
-    // WHILE FETCHING NEXT PAGE, IF WE GOT ERROR, THEN RETURN AND SHOW ERROR MASSAGE  
-    if (photos.length === 0) {
-        console.log(photos, 'searching for :', query);
-        const errorCard = document.querySelector('.error_card');
-        if (errorCard) {
-            errorCard.remove();
-        }
-        state.loading = 'invalid'; // SHOW ERROR : "INVALID KEYWORD" 
-        isGalleryLoading();
-        return;
-    }
-
 
     photos.forEach(img => {
         const imgId = img.id;
@@ -120,4 +118,10 @@ const renderImages = (photos, clear, Query) => {
     })
     LoadImages('grid_item_parent', 'grid_item');
     Observer.observe(sentinel);
+
+    // IF FACED ERROR IN PREVIOUS SEARCHES
+    const error = galleryParent.querySelector('#error');
+    if (error) {
+        error.remove();
+    }
 }

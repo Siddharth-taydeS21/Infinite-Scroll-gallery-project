@@ -3,6 +3,7 @@ import { fetchData } from "./galleryAPI.js";
 import { renderImages } from "./galleryUI.js";
 import { addRelatedImages } from "./imageDetailsUI.js";
 import { fetchRelatedImages } from "./imageDetailsAPI.js";
+import { getMainModalGrid } from "./utils.js";
 
 export { LayoutObserver, Observer, modalObserver }
 
@@ -62,8 +63,6 @@ const LayoutObserver = new IntersectionObserver((entries) => {
     let tabletLayout;
     let mobileLayout;
 
-    let modalMobileLayout;
-
     entries.forEach(entry => {
         if (entry.target.className.includes("desktop_container")) {
             desktopLayout = entry
@@ -73,9 +72,6 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         }
         else if(entry.target.className.includes("mobiles_container")){
             mobileLayout = entry
-        }
-        else if(entry.target.className.includes("modal_mobile_container")){
-            modalMobileLayout = entry
         }
         
     })
@@ -124,37 +120,64 @@ const LayoutObserver = new IntersectionObserver((entries) => {
         if (state.allImagesData.length === 0) return;
         renderImages(state.allImagesData);
     }
-
-    if (modalMobileLayout &&  modalMobileLayout.isIntersecting) {
-        console.log('Modal layout shifted to mobile');
-        const columns  = document.querySelectorAll('.modal_col');
-        columns.forEach(column => {
-            column.innerHTML = '';
-        })
-        
-        if (state.relatedImagesDataArray.length === 0) return;
-        addRelatedImages(state.relatedImagesDataArray);
-    } 
 })
 
 LayoutObserver.observe(desktopContainer);
 LayoutObserver.observe(tabletContainer);
 LayoutObserver.observe(mobileContainer);
-LayoutObserver.observe(ModalMobileContainer);
 
 // SINGLE OBSERVER FOR THE MODAL DESKTOP CONTAINER BECAUSE PRIMARY OBSERVER FUNCTION IS NOT WORKING ON THIS CONTAINER 
-const newObserver = new IntersectionObserver((entries) => {
-    const el = entries[0];
-    if (el.isIntersecting) {
+const ModalLayoutObserver = new IntersectionObserver((entries) => {
+    let modalDesktopContainer;
+    let modalMobileContainer;
+
+    entries.forEach(entry => {
+        if (entry.target.className.includes("modal_desktop_container")) {
+            modalDesktopContainer = entry
+        }
+        if (entry.target.className.includes("modal_mobile_container")) {
+            modalMobileContainer = entry
+        }
+
+    })
+
+    if (modalDesktopContainer && modalDesktopContainer.isIntersecting) {
         console.log('Modal layout shifted to desktop');
-        const columns  = document.querySelectorAll('.modal_col');
-        columns.forEach(column => {
-            column.innerHTML = '';
+        const container = getMainModalGrid();
+        const columns = container.querySelectorAll('.modal_col');
+        let testColumn;
+        columns.forEach(col => {
+            testColumn = col.querySelectorAll('.grid_item_parent');
+        });
+
+        if (testColumn.length > 0) return;
+        const newColumns = document.querySelectorAll('.modal_col');
+        newColumns.forEach(col => {
+            col.innerHTML = '';
         })
-        
-        if (state.relatedImagesDataArray.length === 0) return;
+        addRelatedImages(state.relatedImagesDataArray);
+    }
+
+    if (modalMobileContainer && modalMobileContainer.isIntersecting) {
+        console.log('Modal layout shifted to Mobile');
+        const container = getMainModalGrid();
+        // console.log(container)
+        const columns = container.querySelectorAll('.modal_col');
+        // console.log(columns)
+        let testColumn;
+        columns.forEach(col => {
+            testColumn = col.querySelectorAll('.grid_item_parent');
+        });
+        // console.log(testColumn)
+
+        if (testColumn.length > 0) return;
+        const newColumns = document.querySelectorAll('.modal_col');
+        newColumns.forEach(col => {
+            col.innerHTML = '';
+        })
         addRelatedImages(state.relatedImagesDataArray);
     }
 })
 
-newObserver.observe(ModalDesktopContainer);
+ModalLayoutObserver.observe(ModalDesktopContainer);
+ModalLayoutObserver.observe(ModalMobileContainer);

@@ -1,7 +1,7 @@
 export { fetchImageData, fetchRelatedImages };
 import { state } from "./galleryStates.js";
 import { addHeroCardDetails, addRelatedImages, isModalGalleryLoading } from "./imageDetailsUI.js";
-import { clearModalContent } from "./utils.js";
+import { clearModalContent, getMainModalGrid } from "./utils.js";
 
 
 const key = import.meta.env.VITE_key;
@@ -20,6 +20,10 @@ window.addEventListener('click', (e) => {
     state.mainPhotoIDOnModal = id;
     state.modalPage = 1;
     state.relatedImagesDataArray = [];
+    const container = getMainModalGrid();
+    const columns = container.querySelectorAll('.modal_col');
+    if (columns.length === 2) state.modalMobileColumnHeights = [0, 0];
+    if (columns.length === 3) state.modalDesktopColumnHeights = [0, 0, 0];
     fetchImageData(id);
 })
 
