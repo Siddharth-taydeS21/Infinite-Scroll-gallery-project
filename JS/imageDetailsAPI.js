@@ -87,5 +87,10 @@ const fetchImageData = async (id) => {
     }
     catch (error) {
         console.log(error);
+        state.modalLoading = 'error';
+        isModalGalleryLoading();
+    } finally{
+        state.modalLoading = false;
+        isModalGalleryLoading();
     }
 }

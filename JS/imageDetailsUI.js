@@ -40,7 +40,7 @@ const like = () => {
     const likes = document.querySelector('#img-Likes');
     if (likes.textContent.includes(',')) {
         likesCount = Number(likes.textContent.replace(',', ''));
-    }else{
+    } else {
         likesCount = Number(likes.textContent);
     }
     let num = likesCount + 1;
@@ -77,6 +77,8 @@ const isModalGalleryLoading = () => {
         if (ImgError) {
             ImgError.remove();
         }
+        mainImageContainer.innerHTML = '';
+        mainImageContainer.classList.remove('animate-pulse')
         mainImageContainer.append(
             imgErrorTemp.content.cloneNode(true)
         )
@@ -133,7 +135,7 @@ const addRelatedImages = (photos) => {
         let index;
         if (columns.length === 2) {
             heights = state.modalMobileColumnHeights
-            index = getShortestColumn(heights);  
+            index = getShortestColumn(heights);
         }
         else if (columns.length === 3) {
             heights = state.modalDesktopColumnHeights
@@ -157,7 +159,7 @@ const addRelatedImages = (photos) => {
     })
     LoadImages('grid_item_parent', 'grid_item');
     imgModal.showModal();
-    
+
     // OBSERVE SENTINEL, IF IT'S INTERSECTING THEN FETCH NEXT PAGE AND SHOW RESULTS ON UI
     modalObserver.observe(modalSentinel);
 
@@ -167,6 +169,12 @@ const addRelatedImages = (photos) => {
         clearModalContent();
         imgModal.close();
     });
+
+    // IF FACED ERROR IN PREVIOUS SEARCHES
+    const error = modalGalleryParent.querySelector('#error');
+    if (error) {
+        error.remove();
+    }
 }
 
 // ============================== HERO IMAGE CARD ON THE IMAGE POPUP MODAL LOGIC ===============================
