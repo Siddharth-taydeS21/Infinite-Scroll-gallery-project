@@ -32,6 +32,7 @@ const unlikeIcon = document.getElementById('unlike_icon')
 
 
 const like = () => {
+    likeBtn.classList.toggle('liked');
     likeIcon.classList.toggle('hidden');
     unlikeIcon.classList.toggle('hidden');
 
@@ -43,8 +44,15 @@ const like = () => {
     } else {
         likesCount = Number(likes.textContent);
     }
-    let num = likesCount + 1;
-    likesElement.textContent = num.toLocaleString('en-US');
+
+    // if button liked 
+    if (likeBtn.className.includes('liked')) {
+        let num = likesCount + 1;
+        likesElement.textContent = num.toLocaleString('en-US');
+    }else{
+        let num = likesCount - 1;
+        likesElement.textContent = num.toLocaleString('en-US');
+    }
 }
 likeBtn.addEventListener('click', like)
 
@@ -181,7 +189,7 @@ const addHeroCardDetails = (obj) => {
     // console.log(obj)
     const mainImgUrl = obj.urls.full;
     const userName = obj.user.first_name;
-    const bio = trunCateText(obj.user.bio, 60);
+    const bio = trunCateText(obj.user.bio, 40);
     const profileImg = obj.user.profile_image.medium;
     const publishedDate = getFormattedDate(obj.updated_at);
     const likes = obj.likes.toLocaleString('en-US');
