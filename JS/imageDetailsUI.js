@@ -75,7 +75,7 @@ const isModalGalleryLoading = () => {
         );
 
         const userImageElement = document.querySelector('.user_img');
-        userImageElement.src = './assets/user-image-error.png';
+        userImageElement.src = '/assets/user-image-error.png';
 
         const spinner = mainImageContainer.querySelector('.spinner')
         if (spinner) {
