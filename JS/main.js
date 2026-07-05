@@ -133,7 +133,7 @@ const addUserDetails = () => {
     if (!data) {
         userNameOnNavBar.textContent = 'My profile';
         userImages.forEach(img => {
-            img.src = './assets/dfault-user-img.png';
+            img.src = '/assets/dfault-user-img.png';
         })
         addPhotoMsg.textContent = 'Add your profile picture';
         userName.textContent = 'Add your nick name';
